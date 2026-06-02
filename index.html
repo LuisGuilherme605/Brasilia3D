@@ -321,69 +321,69 @@
 /* ── DATA ───────────────────────────────────────────────────────── */
 const pontos = [
   { id:0, nome:"Congresso Nacional",                tag:"Historia",    tagClass:"tag-historia",
-    wiki:"Congresso_Nacional_do_Brasil",
+    wikis:['en:Palace_of_the_National_Congress','pt:Congresso_Nacional_do_Brasil'],
     desc:"Símbolo da democracia brasileira, o Congresso Nacional foi projetado por Oscar Niemeyer e inaugurado em 1960. As duas cúpulas — uma côncava (Senado) e uma convexa (Câmara) — são ícones do modernismo mundial.",
     rating:"★★★★★", horario:"Seg–Sex 9h–17h", entrada:"Gratuita", dica:"Tours guiados disponíveis", color:"#4a90d9",
     svg:`<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g1" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#0d2240"/><stop offset="1" stop-color="#040c18"/></linearGradient></defs><rect width="300" height="200" fill="url(#g1)"/><circle cx="20" cy="20" r="1" fill="white" opacity=".6"/><circle cx="140" cy="30" r="1" fill="white" opacity=".7"/><circle cx="260" cy="25" r="1.5" fill="white" opacity=".6"/><rect x="40" y="150" width="220" height="8" rx="2" fill="#1a3a6e"/><rect x="60" y="140" width="180" height="12" rx="1" fill="#1e4080"/><rect x="90" y="80" width="120" height="62" fill="#1a3a6e"/><ellipse cx="118" cy="82" rx="28" ry="12" fill="#4a90d9" opacity=".9"/><ellipse cx="118" cy="82" rx="20" ry="8" fill="#2a5fa8"/><ellipse cx="182" cy="78" rx="28" ry="16" fill="#4a90d9" opacity=".9"/><ellipse cx="182" cy="74" rx="20" ry="10" fill="#2a5fa8"/><rect x="60" y="160" width="180" height="40" fill="#061528" opacity=".8"/></svg>` },
 
   { id:1, nome:"Catedral Metropolitana",             tag:"Cultura",    tagClass:"tag-cultura",
-    wiki:"Catedral_Metropolitana_Nossa_Senhora_Aparecida_(Brasília)",
+    wikis:['en:Cathedral_of_Brasília','pt:Catedral_de_Brasília'],
     desc:"Uma obra-prima de Niemeyer: 16 colunas de concreto inclinadas formam um hiperbólico de vidro e aço. O interior inunda de luz colorida pelos vitrais de Marianne Peretti — uma experiência transcendente.",
     rating:"★★★★★", horario:"Ter–Dom 8h–18h", entrada:"Gratuita", dica:"Missa dominical às 10h", color:"#1de9b6",
     svg:`<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g2" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#001a2c"/><stop offset="1" stop-color="#040c18"/></linearGradient><radialGradient id="g2r" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#1de9b6" stop-opacity=".3"/><stop offset="1" stop-color="transparent"/></radialGradient></defs><rect width="300" height="200" fill="url(#g2)"/><circle cx="150" cy="160" r="100" fill="url(#g2r)"/><g stroke="#1de9b6" stroke-width="2" fill="none" opacity=".9"><path d="M150 40 Q130 120 110 160"/><path d="M150 40 Q170 120 190 160"/><path d="M150 40 Q115 100 95 160"/><path d="M150 40 Q185 100 205 160"/><path d="M150 40 Q105 90 85 155"/><path d="M150 40 Q195 90 215 155"/></g><ellipse cx="150" cy="130" rx="65" ry="50" fill="rgba(29,233,182,.07)" stroke="#1de9b6" stroke-width="1"/><line x1="150" y1="20" x2="150" y2="5" stroke="white" stroke-width="2"/><line x1="145" y1="12" x2="155" y2="12" stroke="white" stroke-width="2"/></svg>` },
 
   { id:2, nome:"Torre de TV de Brasília",            tag:"Lazer",      tagClass:"tag-lazer",
-    wiki:"Torre_de_TV_de_Brasília",
+    wikis:['en:Brasília_TV_Tower','pt:Torre_de_TV_de_Brasília'],
     desc:"Com 224 metros de altura, a Torre de TV oferece um mirante com vista 360° da capital federal. É o ponto ideal para contemplar o traçado em forma de avião do Plano Piloto e o pôr do sol sobre o Lago Paranoá.",
     rating:"★★★★☆", horario:"Ter–Dom 9h–20h", entrada:"Gratuita", dica:"Melhor horário: pôr do sol", color:"#74b0ff",
     svg:`<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g3" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#0a1628"/><stop offset="1" stop-color="#040c18"/></linearGradient></defs><rect width="300" height="200" fill="url(#g3)"/><ellipse cx="150" cy="200" rx="200" ry="100" fill="rgba(255,120,50,.12)"/><polygon points="135,170 165,170 158,80 142,80" fill="#1a3a6e"/><rect x="128" y="65" width="44" height="18" rx="4" fill="#2a5fa8"/><rect x="130" y="63" width="40" height="4" rx="2" fill="#74b0ff"/><polygon points="142,80 158,80 155,20 145,20" fill="#1e4080"/><circle cx="150" cy="18" r="4" fill="#74b0ff"/><line x1="150" y1="14" x2="150" y2="2" stroke="#74b0ff" stroke-width="1.5"/><circle cx="150" cy="2" r="2" fill="red"/></svg>` },
 
   { id:3, nome:"Parque Nacional de Brasília",        tag:"Natureza",   tagClass:"tag-natureza",
-    wiki:"Parque_Nacional_de_Brasília",
+    wikis:['en:Brasília_National_Park','pt:Parque_Nacional_de_Brasília'],
     desc:"Conhecido como 'Água Mineral', o parque preserva 42.355 hectares de Cerrado nativo com piscinas naturais, trilhas ecológicas e rica biodiversidade. Um refúgio verde no coração da capital.",
     rating:"★★★★★", horario:"Diário 8h–16h", entrada:"R$ 15", dica:"Leve protetor solar e água", color:"#1de9b6",
     svg:`<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g4" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#051a10"/><stop offset="1" stop-color="#040c18"/></linearGradient></defs><rect width="300" height="200" fill="url(#g4)"/><polygon points="0,130 60,70 120,130" fill="#0a2a18"/><polygon points="80,130 150,60 220,130" fill="#0d3320"/><polygon points="160,130 240,75 300,130" fill="#0a2a18"/><g fill="#1a5c30"><ellipse cx="50" cy="120" rx="18" ry="14"/><ellipse cx="90" cy="112" rx="15" ry="12"/><ellipse cx="130" cy="108" rx="20" ry="15"/><ellipse cx="175" cy="115" rx="16" ry="13"/><ellipse cx="220" cy="118" rx="18" ry="14"/></g><ellipse cx="150" cy="170" rx="80" ry="22" fill="rgba(29,233,182,.25)"/><ellipse cx="150" cy="170" rx="60" ry="16" fill="rgba(29,233,182,.15)"/></svg>` },
 
   { id:4, nome:"Pontão do Lago Sul",                 tag:"Gastronomia",tagClass:"tag-gastronomia",
-    wiki:"Pontão_do_Lago_Sul",
+    wikis:['en:Lake_Paranoá','pt:Lago_Paranoá'],
     desc:"O centro gastronômico e de lazer às margens do Lago Paranoá reúne restaurantes sofisticados, bares à beira d'água e música ao vivo. Um dos pontos mais animados para curtir o fim de semana brasiliense.",
     rating:"★★★★☆", horario:"Diário 12h–00h", entrada:"Gratuita", dica:"Reservas recomendadas p/ jantares", color:"#ff9f43",
     svg:`<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g5" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#0d1a2a"/><stop offset="1" stop-color="#040c18"/></linearGradient></defs><rect width="300" height="200" fill="url(#g5)"/><rect x="0" y="120" width="300" height="80" fill="rgba(255,120,50,.12)"/><rect x="30" y="80" width="50" height="50" rx="4" fill="#1a2a40"/><rect x="90" y="70" width="40" height="60" rx="4" fill="#1a2a40"/><rect x="170" y="75" width="55" height="55" rx="4" fill="#1a2a40"/><rect x="120" y="130" width="60" height="6" rx="2" fill="#223355"/><ellipse cx="220" cy="148" rx="20" ry="7" fill="#2a4070"/></svg>` },
 
   { id:5, nome:"Museu Nacional Honestino Guimarães", tag:"Cultura",    tagClass:"tag-cultura",
-    wiki:"Museu_Nacional_Honestino_Guimarães",
+    wikis:['pt:Complexo_Cultural_da_República','pt:Complexo_Cultural_da_República_João_Herculino'],
     desc:"Outro projeto visionário de Niemeyer, o museu tem formato de cúpula branca e abriga exposições permanentes e temporárias de arte, ciência e história. Um dos maiores museus da América Latina.",
     rating:"★★★★★", horario:"Qua–Dom 9h–18h30", entrada:"R$ 10 (Qua gratuito)", dica:"Exposições temporárias imperdíveis", color:"#c89fff",
     svg:`<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g6" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#0e0a20"/><stop offset="1" stop-color="#040c18"/></linearGradient><radialGradient id="g6r" cx="50%" cy="70%" r="60%"><stop offset="0" stop-color="#c89fff" stop-opacity=".15"/><stop offset="1" stop-color="transparent"/></radialGradient></defs><rect width="300" height="200" fill="url(#g6)"/><rect width="300" height="200" fill="url(#g6r)"/><ellipse cx="150" cy="162" rx="110" ry="20" fill="#1a1030"/><ellipse cx="150" cy="120" rx="90" ry="75" fill="#f0eef8"/><ellipse cx="150" cy="120" rx="88" ry="73" fill="#e8e6f5"/><ellipse cx="150" cy="145" rx="90" ry="20" fill="rgba(0,0,0,.3)"/><rect x="130" y="148" width="40" height="22" rx="3" fill="#1a1030"/></svg>` },
 
   { id:6, nome:"Palácio do Itamaraty",               tag:"Historia",   tagClass:"tag-historia",
-    wiki:"Palácio_do_Itamaraty_(Brasília)",
+    wikis:['en:Itamaraty_Palace','pt:Palácio_do_Itamaraty'],
     desc:"Sede do Ministério das Relações Exteriores, o Itamaraty é considerado a obra-prima de Oscar Niemeyer. Arcos monumentais refletem no espelho d'água, combinando arquitetura modernista com obras de arte excepcionais.",
     rating:"★★★★★", horario:"Seg–Sex 14h–17h (visitas guiadas)", entrada:"Gratuita", dica:"Agendamento obrigatório online", color:"#f5c842",
     svg:`<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g7" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#0d1a0d"/><stop offset="1" stop-color="#040c18"/></linearGradient></defs><rect width="300" height="200" fill="url(#g7)"/><rect x="0" y="140" width="300" height="60" fill="rgba(13,30,60,.8)"/><g fill="none" stroke="#f5c842" stroke-width="3"><path d="M50 140 Q50 80 90 80 Q130 80 130 140"/><path d="M90 140 Q90 70 130 70 Q170 70 170 140"/><path d="M130 140 Q130 70 170 70 Q210 70 210 140"/><path d="M170 140 Q170 80 210 80 Q250 80 250 140"/></g><rect x="50" y="80" width="200" height="62" fill="rgba(20,40,20,.6)"/><rect x="45" y="75" width="210" height="8" rx="2" fill="#2a4a20"/><g fill="none" stroke="#f5c842" stroke-width="1.5" opacity=".4"><path d="M50 140 Q50 175 90 175 Q130 175 130 140"/><path d="M90 140 Q90 178 130 178 Q170 178 170 140"/></g></svg>` },
 
   { id:7, nome:"Jardim Botânico de Brasília",        tag:"Natureza",   tagClass:"tag-natureza",
-    wiki:"Jardim_Botânico_de_Brasília",
+    wikis:['en:Brasília_Botanical_Garden','pt:Jardim_Botânico_de_Brasília'],
     desc:"Um dos maiores jardins botânicos do mundo, com 4.516 hectares preservando espécies nativas do cerrado. O estufa em forma de pirâmide de vidro abriga plantas de todos os biomas brasileiros.",
     rating:"★★★★☆", horario:"Ter–Dom 9h–17h", entrada:"R$ 5", dica:"Melhor época: abril a setembro", color:"#1de9b6",
     svg:`<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g8" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#051a10"/><stop offset="1" stop-color="#040c18"/></linearGradient></defs><rect width="300" height="200" fill="url(#g8)"/><polygon points="150,30 220,150 80,150" fill="rgba(29,233,182,.08)" stroke="#1de9b6" stroke-width="1.5"/><line x1="150" y1="30" x2="150" y2="150" stroke="#1de9b6" stroke-width=".8" opacity=".4"/><ellipse cx="150" cy="130" rx="25" ry="18" fill="rgba(20,100,50,.5)"/><g fill="#0d3a1a"><ellipse cx="30" cy="140" rx="22" ry="18"/><ellipse cx="270" cy="142" rx="18" ry="14"/></g></svg>` },
 
   { id:8, nome:"Memorial JK",                        tag:"Historia",   tagClass:"tag-historia",
-    wiki:"Memorial_Juscelino_Kubitschek",
+    wikis:['en:Memorial_JK','pt:Memorial_JK'],
     desc:"Homenagem ao presidente Juscelino Kubitschek, fundador de Brasília. O memorial abriga o túmulo de JK, seu acervo pessoal, documentos históricos e esculturas monumentais. Um tributo à visão que criou a capital.",
     rating:"★★★★☆", horario:"Ter–Dom 9h–18h", entrada:"R$ 12", dica:"Tour noturno às sextas-feiras", color:"#c89fff",
     svg:`<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g9" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#100a1a"/><stop offset="1" stop-color="#040c18"/></linearGradient></defs><rect width="300" height="200" fill="url(#g9)"/><circle cx="250" cy="35" r="20" fill="rgba(200,159,255,.15)"/><polygon points="150,20 165,160 135,160" fill="#2a1a4a"/><polygon points="150,20 160,160 150,160" fill="#3a2560"/><polygon points="150,12 152,18 158,18 153,22 155,28 150,24 145,28 147,22 142,18 148,18" fill="#c89fff" opacity=".9"/><circle cx="150" cy="100" r="14" fill="#3a2560" stroke="#c89fff" stroke-width="1" opacity=".7"/><rect x="110" y="155" width="80" height="15" rx="3" fill="#2a1a4a"/><rect x="100" y="168" width="100" height="10" rx="2" fill="#1e1030"/><text x="150" y="164" text-anchor="middle" fill="rgba(200,159,255,.6)" font-size="5" font-family="serif">JUSCELINO KUBITSCHEK</text></svg>` },
 ];
 
 const galleryItems = [
-  { wiki:'Congresso_Nacional_do_Brasil',                             label:'Congresso Nacional',    tall:true  },
-  { wiki:'Catedral_Metropolitana_Nossa_Senhora_Aparecida_(Brasília)',label:'Catedral Metropolitana'            },
-  { wiki:'Torre_de_TV_de_Brasília',                                  label:'Torre de TV'                       },
-  { wiki:'Palácio_do_Planalto',                                      label:'Palácio do Planalto',   tall:true  },
-  { wiki:'Lago_Paranoá',                                             label:'Lago Paranoá'                      },
-  { wiki:'Esplanada_dos_Ministérios',                                label:'Esplanada dos Ministérios', wide:true },
-  { wiki:'Museu_Nacional_Honestino_Guimarães',                       label:'Museu Nacional'                    },
-  { wiki:'Palácio_do_Itamaraty_(Brasília)',                          label:'Palácio do Itamaraty'              },
+  { wikis:['en:Palace_of_the_National_Congress','pt:Congresso_Nacional_do_Brasil'],    label:'Congresso Nacional',       tall:true  },
+  { wikis:['en:Cathedral_of_Brasília','pt:Catedral_de_Brasília'],                       label:'Catedral Metropolitana'               },
+  { wikis:['en:Brasília_TV_Tower','pt:Torre_de_TV_de_Brasília'],                        label:'Torre de TV'                          },
+  { wikis:['en:Palácio_do_Planalto','pt:Palácio_do_Planalto'],                          label:'Palácio do Planalto',      tall:true  },
+  { wikis:['en:Lake_Paranoá','pt:Lago_Paranoá'],                                        label:'Lago Paranoá'                         },
+  { wikis:['en:Esplanade_of_the_Ministries','pt:Esplanada_dos_Ministérios'],            label:'Esplanada dos Ministérios', wide:true },
+  { wikis:['pt:Complexo_Cultural_da_República','pt:Complexo_Cultural_da_República_João_Herculino'], label:'Museu Nacional'            },
+  { wikis:['en:Itamaraty_Palace','pt:Palácio_do_Itamaraty'],                            label:'Palácio do Itamaraty'                 },
 ];
 
 const dicas = [
@@ -398,26 +398,46 @@ const dicas = [
 ];
 
 /* ── WIKIPEDIA FETCHER ──────────────────────────────────────────── */
+// Cache keyed by ponto ID or gallery label (not by title, since we try multiple)
 const photoCache = {};
-async function fetchWikiPhoto(title) {
-  if (photoCache[title] !== undefined) return photoCache[title];
-  try {
-    const ctl = new AbortController();
-    const tid = setTimeout(() => ctl.abort(), 6000);
-    const r = await fetch(
-      `https://pt.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`,
-      { signal: ctl.signal }
-    );
-    clearTimeout(tid);
-    if (!r.ok) throw new Error('not found');
-    const d = await r.json();
-    const url = d.originalimage?.source || d.thumbnail?.source || null;
-    photoCache[title] = url;
-    return url;
-  } catch {
-    photoCache[title] = null;
-    return null;
+
+async function fetchWikiPhoto(cacheKey, sources) {
+  if (photoCache[cacheKey] !== undefined) return photoCache[cacheKey];
+
+  for (const source of sources) {
+    const sep   = source.indexOf(':');
+    const lang  = source.slice(0, sep);                 // 'pt' or 'en'
+    const title = source.slice(sep + 1);                // article title
+    try {
+      const ctl = new AbortController();
+      const tid = setTimeout(() => ctl.abort(), 5000);
+      const r = await fetch(
+        `https://${lang}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`,
+        { signal: ctl.signal }
+      );
+      clearTimeout(tid);
+      if (!r.ok) continue;
+      const d = await r.json();
+      const url = d.originalimage?.source || d.thumbnail?.source;
+      if (!url) continue;
+
+      // ── Quality filters ──────────────────────────────────────
+      const lower = url.toLowerCase();
+      // Reject vector graphics
+      if (lower.includes('.svg')) continue;
+      // Reject logos, icons, seals, coats of arms
+      if (/logo|brand|icon|seal|bras[aã]o|marca|badge|escudo/i.test(lower)) continue;
+      // Reject images too small to be real photos
+      if (d.originalimage && d.originalimage.width < 400) continue;
+      // ─────────────────────────────────────────────────────────
+
+      photoCache[cacheKey] = url;
+      return url;
+    } catch { continue; }
   }
+
+  photoCache[cacheKey] = null;
+  return null;
 }
 
 /* ── FAVORITES ──────────────────────────────────────────────────── */
@@ -486,7 +506,7 @@ function openModal(p) {
     <span class="modal-pill">💡 ${p.dica}</span>`;
   const img = document.getElementById('modal-photo');
   img.classList.remove('loaded');
-  const cached = photoCache[p.wiki];
+  const cached = photoCache[p.id];
   if (cached) { img.src = cached; img.onload = () => img.classList.add('loaded'); }
   else img.src = '';
   document.getElementById('modal-overlay').classList.add('open');
@@ -512,9 +532,9 @@ galleryItems.forEach(g => {
   const item = document.createElement('div');
   item.className = 'gallery-item' + (g.tall ? ' tall' : '') + (g.wide ? ' wide' : '');
   item.innerHTML = `<div class="gallery-skel"></div><div class="gallery-overlay"><span>${g.label}</span></div>`;
-  item.addEventListener('click', () => openLightbox(photoCache[g.wiki], g.label));
+  item.addEventListener('click', () => openLightbox(photoCache[g.label], g.label));
   galleryGrid.appendChild(item);
-  fetchWikiPhoto(g.wiki).then(url => {
+  fetchWikiPhoto(g.label, g.wikis).then(url => {
     if (!url) return;
     const img = document.createElement('img');
     img.src = url; img.alt = g.label; img.loading = 'lazy';
@@ -553,11 +573,11 @@ pontos.forEach((p, i) => {
     </div>`;
 
   card.querySelector('.fav-btn').addEventListener('click', e => { e.stopPropagation(); toggleFavorite(p.id, e.currentTarget); });
-  card.querySelector('.card-photo').addEventListener('click', e => { e.stopPropagation(); if (photoCache[p.wiki]) { openLightbox(photoCache[p.wiki], p.nome); } else openModal(p); });
+  card.querySelector('.card-photo').addEventListener('click', e => { e.stopPropagation(); if (photoCache[p.id]) { openLightbox(photoCache[p.id], p.nome); } else openModal(p); });
   card.addEventListener('click', () => openModal(p));
   cardsContainer.appendChild(card);
 
-  fetchWikiPhoto(p.wiki).then(url => {
+  fetchWikiPhoto(p.id, p.wikis).then(url => {
     if (!url) { card.querySelector('.photo-skeleton')?.remove(); return; }
     const img = card.querySelector('.card-real-img');
     img.src = url;
