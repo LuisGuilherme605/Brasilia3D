@@ -10,7 +10,7 @@
   <meta http-equiv="Content-Security-Policy"
     content="default-src 'self';
              img-src 'self' https: data: blob:;
-             connect-src https://pt.wikipedia.org https://en.wikipedia.org;
+             connect-src https://pt.wikipedia.org https://en.wikipedia.org https://commons.wikimedia.org;
              style-src 'self' 'unsafe-inline';
              script-src 'self' 'unsafe-inline';
              frame-ancestors 'none';">
@@ -339,7 +339,7 @@ const pontos = [
     svg:`<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g3" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#0a1628"/><stop offset="1" stop-color="#040c18"/></linearGradient></defs><rect width="300" height="200" fill="url(#g3)"/><ellipse cx="150" cy="200" rx="200" ry="100" fill="rgba(255,120,50,.12)"/><polygon points="135,170 165,170 158,80 142,80" fill="#1a3a6e"/><rect x="128" y="65" width="44" height="18" rx="4" fill="#2a5fa8"/><rect x="130" y="63" width="40" height="4" rx="2" fill="#74b0ff"/><polygon points="142,80 158,80 155,20 145,20" fill="#1e4080"/><circle cx="150" cy="18" r="4" fill="#74b0ff"/><line x1="150" y1="14" x2="150" y2="2" stroke="#74b0ff" stroke-width="1.5"/><circle cx="150" cy="2" r="2" fill="red"/></svg>` },
 
   { id:3, nome:"Parque Nacional de Brasília",        tag:"Natureza",   tagClass:"tag-natureza",
-    wikis:['en:Brasília_National_Park','pt:Parque_Nacional_de_Brasília'],
+    wikis:['direct:https://commons.wikimedia.org/wiki/Special:FilePath/Parque_Nacional_de_Brasilia_-_piscina_pedreira_vista.jpg?width=800'],
     desc:"Conhecido como 'Água Mineral', o parque preserva 42.355 hectares de Cerrado nativo com piscinas naturais, trilhas ecológicas e rica biodiversidade. Um refúgio verde no coração da capital.",
     rating:"★★★★★", horario:"Diário 8h–16h", entrada:"R$ 15", dica:"Leve protetor solar e água", color:"#1de9b6",
     svg:`<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g4" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#051a10"/><stop offset="1" stop-color="#040c18"/></linearGradient></defs><rect width="300" height="200" fill="url(#g4)"/><polygon points="0,130 60,70 120,130" fill="#0a2a18"/><polygon points="80,130 150,60 220,130" fill="#0d3320"/><polygon points="160,130 240,75 300,130" fill="#0a2a18"/><g fill="#1a5c30"><ellipse cx="50" cy="120" rx="18" ry="14"/><ellipse cx="90" cy="112" rx="15" ry="12"/><ellipse cx="130" cy="108" rx="20" ry="15"/><ellipse cx="175" cy="115" rx="16" ry="13"/><ellipse cx="220" cy="118" rx="18" ry="14"/></g><ellipse cx="150" cy="170" rx="80" ry="22" fill="rgba(29,233,182,.25)"/><ellipse cx="150" cy="170" rx="60" ry="16" fill="rgba(29,233,182,.15)"/></svg>` },
@@ -405,6 +405,13 @@ async function fetchWikiPhoto(cacheKey, sources) {
   if (photoCache[cacheKey] !== undefined) return photoCache[cacheKey];
 
   for (const source of sources) {
+    // Direct Wikimedia Commons URL — skip API fetch entirely
+    if (source.startsWith('direct:')) {
+      const url = source.slice(7);
+      photoCache[cacheKey] = url;
+      return url;
+    }
+
     const sep   = source.indexOf(':');
     const lang  = source.slice(0, sep);                 // 'pt' or 'en'
     const title = source.slice(sep + 1);                // article title
