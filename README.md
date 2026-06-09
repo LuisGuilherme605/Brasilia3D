@@ -2,6 +2,14 @@
 
 Site de turismo interativo sobre Brasília, construído inteiramente com HTML, CSS e JavaScript puro — sem frameworks, sem bibliotecas externas, sem build step. Basta abrir o `index.html` no navegador.
 
+## Estrutura do projeto
+
+```
+index.html   → Estrutura HTML semântica
+style.css    → Estilos visuais (layout, animações, responsividade)
+script.js    → Lógica da aplicação (dados, renderização, interatividade)
+```
+
 ## Visão geral
 
 O projeto apresenta os principais pontos turísticos da capital federal com uma interface escura e animada, incluindo um skyline tridimensional interativo e ilustrações vetoriais desenhadas para cada atração.
