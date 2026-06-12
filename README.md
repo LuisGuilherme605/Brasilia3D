@@ -8,17 +8,18 @@ Site de turismo interativo sobre Brasília, construído inteiramente com HTML, C
 index.html   → Estrutura HTML semântica
 style.css    → Estilos visuais (layout, animações, responsividade)
 script.js    → Lógica da aplicação (dados, renderização, interatividade)
+assets/      → Arte da marca (pôster modernista de Brasília)
 ```
 
 ## Visão geral
 
-O projeto apresenta os principais pontos turísticos da capital federal com uma interface escura e animada, incluindo um skyline tridimensional interativo e ilustrações vetoriais desenhadas para cada atração.
+O projeto apresenta os principais pontos turísticos da capital federal com uma identidade visual editorial inspirada no modernismo de Brasília: fundo cor de papel, tipografia Archivo + Fraunces, paleta azul/terracota/mostarda e linhas finas de grade. Inclui um skyline tridimensional interativo e ilustrações vetoriais para cada atração.
 
 ## O que foi desenvolvido
 
-### Hero com globo 3D animado
+### Hero editorial com pôster da casa
 
-A tela inicial renderiza um campo de estrelas com variação de brilho via seno e um globo wireframe girando continuamente, tudo via Canvas API. Os meridianos e paralelos são calculados geometricamente a cada frame.
+A abertura combina tipografia em escala de cartaz com um pôster de viagem retrô de Brasília (torres e cúpulas do Congresso Nacional), criado no Canva e emoldurado como peça gráfica da marca.
 
 ### Cards de pontos turísticos
 
