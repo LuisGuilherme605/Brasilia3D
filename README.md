@@ -54,9 +54,3 @@ Abra o `index.html` direto no navegador. Para testar com servidor local:
 python -m http.server 8000
 # acesse http://localhost:8000
 ```
-
-## GitHub Pages
-
-Para publicar via GitHub Pages: **Settings → Pages → Branch: main → Save**.
-
-O site ficará disponível em `https://luisguilherme605.github.io/Brasilia3D`.
