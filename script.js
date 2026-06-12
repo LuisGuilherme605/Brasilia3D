@@ -67,14 +67,14 @@ const galleryItems = [
 ];
 
 const dicas = [
-  { icon:"\u{1F321}️", title:"Clima",           text:"Brasília tem duas estações: seca (maio–setembro) e chuvosa (outubro–abril). A umidade cai muito no inverno — leve hidratante e água." },
-  { icon:"\u{1F697}", title:"Transporte",      text:"A cidade é planejada para carros, mas o metrô conecta as principais áreas. Apps de mobilidade (99, Uber) funcionam muito bem." },
-  { icon:"\u{1F37D}️", title:"Gastronomia",    text:"Além do Pontão, o Setor de Clubes Norte e o Lago Norte têm ótimos restaurantes. O pão de queijo e o pequi são obrigatórios!" },
-  { icon:"\u{1F3DB}️", title:"Passeios Grátis",text:"Congresso Nacional, Catedral, Palácio do Itamaraty, Torre de TV e Esplanada dos Ministérios são gratuitos para visitar." },
-  { icon:"\u{1F4F8}", title:"Fotografia",      text:"O Eixo Monumental ao amanhecer e o espelho d'água do Itamaraty ao entardecer são os melhores spots para fotos." },
-  { icon:"\u{1F33F}", title:"Natureza",        text:"Reserve um dia para o Parque Nacional e outro para o Jardim Botânico — biodiversidade do cerrado que encanta qualquer visitante." },
-  { icon:"\u{1F3AD}", title:"Cultura",         text:"A Funarte, o Cine Brasília e o Clube do Choro têm programação cultural intensa e acessível durante todo o ano." },
-  { icon:"⏰", title:"Melhor Época",    text:"Maio a agosto: clima seco e agradável, céu azul intenso — perfeito para a arquitetura modernista brilhar nas fotos." },
+  { title:"Clima",           text:"Brasília tem duas estações: seca (maio–setembro) e chuvosa (outubro–abril). A umidade cai muito no inverno — leve hidratante e água." },
+  { title:"Transporte",      text:"A cidade é planejada para carros, mas o metrô conecta as principais áreas. Apps de mobilidade (99, Uber) funcionam muito bem." },
+  { title:"Gastronomia",     text:"Além do Pontão, o Setor de Clubes Norte e o Lago Norte têm ótimos restaurantes. O pão de queijo e o pequi são obrigatórios!" },
+  { title:"Passeios Grátis", text:"Congresso Nacional, Catedral, Palácio do Itamaraty, Torre de TV e Esplanada dos Ministérios são gratuitos para visitar." },
+  { title:"Fotografia",      text:"O Eixo Monumental ao amanhecer e o espelho d'água do Itamaraty ao entardecer são os melhores spots para fotos." },
+  { title:"Natureza",        text:"Reserve um dia para o Parque Nacional e outro para o Jardim Botânico — biodiversidade do cerrado que encanta qualquer visitante." },
+  { title:"Cultura",         text:"A Funarte, o Cine Brasília e o Clube do Choro têm programação cultural intensa e acessível durante todo o ano." },
+  { title:"Melhor Época",    text:"Maio a agosto: clima seco e agradável, céu azul intenso — perfeito para a arquitetura modernista brilhar nas fotos." },
 ];
 
 /* ── WIKIPEDIA FETCHER ──────────────────────────────────────────── */
@@ -188,9 +188,9 @@ function openModal(p) {
   document.getElementById('modal-title').textContent = p.nome;
   document.getElementById('modal-desc').textContent  = p.desc;
   document.getElementById('modal-info').innerHTML    = `
-    <span class="modal-pill">\u{1F550} ${p.horario}</span>
-    <span class="modal-pill">\u{1F39F}️ ${p.entrada}</span>
-    <span class="modal-pill">\u{1F4A1} ${p.dica}</span>`;
+    <span class="modal-pill"><strong>Horário</strong>${p.horario}</span>
+    <span class="modal-pill"><strong>Entrada</strong>${p.entrada}</span>
+    <span class="modal-pill"><strong>Dica</strong>${p.dica}</span>`;
   const img = document.getElementById('modal-photo');
   img.classList.remove('loaded');
   const cached = photoCache[p.id];
@@ -279,7 +279,7 @@ dicas.forEach((d, i) => {
   const el = document.createElement('div');
   el.className = 'dica-card reveal';
   el.style.transitionDelay = `${i * 0.05}s`;
-  el.innerHTML = `<div class="dica-icon" aria-hidden="true">${d.icon}</div><h4>${d.title}</h4><p>${d.text}</p>`;
+  el.innerHTML = `<div class="dica-num" aria-hidden="true">Nº ${String(i + 1).padStart(2, '0')}</div><h4>${d.title}</h4><p>${d.text}</p>`;
   dicasContainer.appendChild(el);
 });
 
@@ -304,38 +304,6 @@ hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); 
 window.closeMobileMenu = () => { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); };
 
 updateNavFav();
-
-/* ── HERO CANVAS ────────────────────────────────────────────────── */
-(function heroCanvas() {
-  const canvas = document.getElementById('bg-canvas');
-  const ctx = canvas.getContext('2d');
-  let W, H, stars = [], particles = [], globeAngle = 0;
-
-  function resize() {
-    W = canvas.width  = canvas.offsetWidth;
-    H = canvas.height = canvas.offsetHeight;
-    stars = Array.from({length:180},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.8+.3,a:Math.random(),s:Math.random()*.008+.002}));
-    particles = Array.from({length:50},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.2+.2}));
-  }
-
-  function drawGlobe(cx,cy,radius,angle){
-    ctx.save(); ctx.globalAlpha=.13;
-    for(let i=0;i<10;i++){const phi=(i/10)*Math.PI;ctx.beginPath();for(let t=0;t<=Math.PI;t+=.05){const x3=radius*Math.sin(t)*Math.cos(phi+angle),y3=radius*Math.cos(t);t===0?ctx.moveTo(cx+x3,cy+y3):ctx.lineTo(cx+x3,cy+y3);}ctx.strokeStyle='#1de9b6';ctx.lineWidth=1;ctx.stroke();}
-    for(let j=-4;j<=4;j++){const lat=(j/4)*(Math.PI/2),r2=radius*Math.cos(lat),yOff=radius*Math.sin(lat);ctx.beginPath();ctx.ellipse(cx,cy+yOff,r2,r2*.25,0,0,Math.PI*2);ctx.strokeStyle='#74b0ff';ctx.lineWidth=.8;ctx.stroke();}
-    ctx.restore();
-    const g=ctx.createRadialGradient(cx,cy,0,cx,cy,radius);g.addColorStop(0,'rgba(29,233,182,.05)');g.addColorStop(.7,'rgba(13,110,253,.04)');g.addColorStop(1,'transparent');ctx.beginPath();ctx.arc(cx,cy,radius,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
-  }
-
-  function loop(){
-    ctx.fillStyle='#050d1a';ctx.fillRect(0,0,W,H);
-    stars.forEach(s=>{s.a+=s.s;const a=(Math.sin(s.a)*.5+.5)*.9+.1;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.fill();});
-    particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(116,176,255,.4)';ctx.fill();});
-    globeAngle+=.004;const gx=W/2,gy=H/2,gr=Math.min(W,H)*.28;drawGlobe(gx,gy,gr,globeAngle);
-    ctx.save();ctx.globalAlpha=.1;ctx.beginPath();ctx.arc(gx,gy,gr+20,0,Math.PI*2);ctx.strokeStyle='#1de9b6';ctx.lineWidth=1;ctx.setLineDash([6,14]);ctx.stroke();ctx.restore();
-    requestAnimationFrame(loop);
-  }
-  window.addEventListener('resize',resize); resize(); loop();
-})();
 
 /* ── CITY 3D CANVAS ─────────────────────────────────────────────── */
 (function cityCanvas() {
@@ -373,7 +341,7 @@ updateNavFav();
 
   function drawWins(cx,cz,w,h,base,col){const z1=cz-w*.01;const p0=proj(cx-w/2,base,z1),p1=proj(cx+w/2,base,z1),p2=proj(cx+w/2,base+h,z1),p3=proj(cx-w/2,base+h,z1);if(!p0||!p1||!p2||!p3)return;const rows=Math.max(2,Math.floor(h*2.5)),cols=Math.max(2,Math.floor(w*2.2));const wc=col==='#d4a820'||col==='#f5c842'?'rgba(255,210,80,.75)':'rgba(185,220,255,.68)';for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){if(((r*cols+c)*2654435761>>>0)%100>60)continue;const u=(c+.5)/cols,v=(r+.35)/rows;const bx=p0.sx+(p1.sx-p0.sx)*u,by=p0.sy+(p1.sy-p0.sy)*u,tx=p3.sx+(p2.sx-p3.sx)*u,ty=p3.sy+(p2.sy-p3.sy)*u;ctx.fillStyle=wc;ctx.fillRect(bx+(tx-bx)*v-1.5,by+(ty-by)*v-1.5,3,2.5);}}
 
-  function lbl(cx,y,cz,text,col){const p=proj(cx,y,cz);if(!p||!text)return;ctx.save();ctx.font='bold 9px "Segoe UI",sans-serif';ctx.textAlign='center';const tw=ctx.measureText(text).width;ctx.fillStyle='rgba(4,10,22,.72)';ctx.fillRect(p.sx-tw/2-4,p.sy-11,tw+8,14);ctx.fillStyle=col;ctx.globalAlpha=.92;ctx.fillText(text,p.sx,p.sy);ctx.restore();}
+  function lbl(cx,y,cz,text,col){const p=proj(cx,y,cz);if(!p||!text)return;ctx.save();ctx.font='bold 9px "Archivo",sans-serif';ctx.textAlign='center';const tw=ctx.measureText(text).width;ctx.fillStyle='rgba(4,10,22,.72)';ctx.fillRect(p.sx-tw/2-4,p.sy-11,tw+8,14);ctx.fillStyle=col;ctx.globalAlpha=.92;ctx.fillText(text,p.sx,p.sy);ctx.restore();}
 
   const CITY=[
     {t:'box',cx:7.0,cz:.5,w:.85,d:.85,h:3.8,col:'#2a5fa8',lbl:''},{t:'box',cx:8.2,cz:2.5,w:.65,d:.65,h:2.9,col:'#1e3a6e',lbl:''},{t:'box',cx:-7.2,cz:1.5,w:.8,d:.8,h:3.2,col:'#2a5fa8',lbl:''},{t:'box',cx:-8.5,cz:3.0,w:.65,d:.65,h:2.3,col:'#1e3a6e',lbl:''},{t:'box',cx:5.5,cz:-3.5,w:.6,d:.6,h:2.2,col:'#1e3a6e',lbl:''},{t:'box',cx:-5.0,cz:-4.0,w:.75,d:.75,h:1.9,col:'#2a3a5e',lbl:''},{t:'box',cx:6.5,cz:4.5,w:.7,d:.7,h:2.7,col:'#253060',lbl:''},{t:'box',cx:-6.5,cz:5.0,w:.85,d:.85,h:2.1,col:'#1e3a6e',lbl:''},{t:'box',cx:9.0,cz:-1.5,w:.55,d:.55,h:1.6,col:'#1a2a50',lbl:''},
