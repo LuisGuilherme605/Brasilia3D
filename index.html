@@ -3,15 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Brasília 3D – Cidade do Futuro</title>
-  <meta name="description" content="Guia turístico interativo de Brasília com visualização 3D dos principais monumentos, fotos reais e informações de visita.">
+  <title>Brasília 3D — Guia da Capital Modernista</title>
+  <meta name="description" content="Guia turístico de Brasília: pontos turísticos com fotos reais, skyline 3D interativo e dicas práticas para visitar a capital modernista.">
 
   <!-- ── Segurança ─────────────────────────────────────────────── -->
   <meta http-equiv="Content-Security-Policy"
     content="default-src 'self';
              img-src 'self' https: data: blob:;
              connect-src https://pt.wikipedia.org https://en.wikipedia.org https://commons.wikimedia.org;
-             style-src 'self' 'unsafe-inline';
+             style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+             font-src https://fonts.gstatic.com;
              script-src 'self' 'unsafe-inline';
              frame-ancestors 'none';">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -19,10 +20,16 @@
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
 
   <!-- ── Open Graph ───────────────────────────────────────────── -->
-  <meta property="og:title"       content="Brasília 3D – Cidade do Futuro">
+  <meta property="og:title"       content="Brasília 3D — Guia da Capital Modernista">
   <meta property="og:description" content="Pontos turísticos, skyline 3D interativo e fotos reais de Brasília.">
   <meta property="og:type"        content="website">
-  <meta name="theme-color"        content="#050d1a">
+  <meta property="og:image"       content="assets/poster-brasilia.png">
+  <meta name="theme-color"        content="#f5f0e6">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f5f0e6'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' font-weight='bold' fill='%231f4e8c' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
@@ -31,7 +38,7 @@
 <div id="progress-bar" aria-hidden="true"></div>
 
 <nav>
-  <a href="#" class="nav-logo">BSB 3D</a>
+  <a href="#" class="nav-logo">Brasília<em>3D</em></a>
   <ul class="nav-links">
     <li><a href="#galeria">Galeria</a></li>
     <li><a href="#pontos">Pontos Turísticos</a></li>
@@ -54,42 +61,47 @@
   <a href="#"         onclick="filterFavorites();closeMobileMenu()"><span aria-hidden="true">♥</span> Favoritos</a>
 </div>
 
-<section id="hero">
-  <canvas id="bg-canvas" aria-hidden="true"></canvas>
-  <div class="hero-content">
-    <p class="hero-badge">Patrimônio Cultural da Humanidade · UNESCO 1987</p>
-    <h1 class="hero-title">Brasília</h1>
-    <p class="hero-sub">A capital do Brasil projetada por Oscar Niemeyer e Lúcio Costa — uma cidade nascida do sonho modernista no coração do cerrado.</p>
-    <a href="#galeria" class="hero-cta">Explorar a cidade</a>
+<header id="hero">
+  <div class="hero-grid">
+    <div class="hero-text">
+      <p class="hero-kicker">Guia da capital · Patrimônio Mundial da UNESCO desde 1987</p>
+      <h1 class="hero-title">Brasília<span>.</span></h1>
+      <p class="hero-sub">A cidade que Lúcio Costa traçou e Oscar Niemeyer ergueu em concreto e curva, no meio do cerrado — inaugurada em 1960 e, até hoje, sem nada parecido no mundo.</p>
+      <div class="hero-actions">
+        <a href="#pontos" class="btn btn-solid">Ver pontos turísticos</a>
+        <a href="#galeria" class="btn">Galeria de fotos</a>
+      </div>
+    </div>
+    <figure class="hero-poster">
+      <img src="assets/poster-brasilia.png" alt="Pôster modernista de Brasília com as torres e cúpulas do Congresso Nacional" width="1200" height="1697">
+      <figcaption>Pôster da casa — série Capital Modernista</figcaption>
+    </figure>
   </div>
-  <div class="scroll-hint" aria-hidden="true">Role para baixo</div>
-</section>
+</header>
 
-<section id="stats">
-  <div class="stat-item"><div class="num">3,1M</div><p>Habitantes</p></div>
-  <div class="stat-item"><div class="num">1960</div><p>Fundação</p></div>
+<section id="stats" aria-label="Brasília em números">
+  <div class="stat-item"><div class="num">3,1 mi</div><p>habitantes</p></div>
+  <div class="stat-item"><div class="num">1960</div><p>ano de fundação</p></div>
   <div class="stat-item"><div class="num">1.000</div><p>km² de área</p></div>
-  <div class="stat-item"><div class="num">1.172</div><p>metros de altitude</p></div>
-  <div class="stat-item"><div class="num">+30</div><p>Pontos turísticos</p></div>
+  <div class="stat-item"><div class="num">1.172 m</div><p>de altitude</p></div>
+  <div class="stat-item"><div class="num">30+</div><p>pontos turísticos</p></div>
 </section>
 
 <section id="galeria">
   <div class="section-title reveal">
-    <span>Fotografia</span>
+    <span>01 — Fotografia</span>
     <h2>Galeria de Brasília</h2>
-    <p>A cidade em imagens — de monumentos modernistas ao cerrado nativo.</p>
+    <p>A cidade em imagens: dos monumentos da Esplanada ao cerrado que a cerca.</p>
   </div>
   <div class="gallery-grid reveal" id="gallery-grid"></div>
-  <p style="text-align:center;margin-top:1rem;font-size:.7rem;color:rgba(255,255,255,.25)">
-    Fotos: Wikimedia Commons (CC BY-SA) · Clique para ampliar
-  </p>
+  <p class="gallery-note">Fotos: Wikimedia Commons (CC BY-SA) · Clique para ampliar</p>
 </section>
 
 <section id="pontos">
   <div class="section-title reveal">
-    <span>Descubra</span>
+    <span>02 — Roteiro</span>
     <h2>Pontos Turísticos</h2>
-    <p>De monumentos icônicos a parques naturais — Brasília surpreende quem a visita.</p>
+    <p>De palácios e museus a parques de cerrado nativo — o essencial para montar seu roteiro.</p>
   </div>
   <div class="filter-wrap reveal">
     <button class="filter-btn active" data-cat="todos"       onclick="setFilter(this,'todos')">Todos</button>
@@ -109,28 +121,45 @@
 
 <section id="mapa3d">
   <div class="section-title reveal">
-    <span>Visualização</span>
+    <span>03 — Maquete</span>
     <h2>Skyline 3D</h2>
-    <p>Uma representação tridimensional interativa dos monumentos mais marcantes de Brasília. Arraste para girar.</p>
+    <p>Uma maquete eletrônica dos monumentos mais marcantes do Plano Piloto. Arraste para girar.</p>
   </div>
   <div id="city-canvas-wrapper" class="reveal">
     <canvas id="city-canvas" aria-label="Skyline 3D interativo de Brasília"></canvas>
-    <div class="canvas-label" aria-hidden="true">Segure e arraste para interagir</div>
+    <div class="canvas-label" aria-hidden="true">Segure e arraste para girar a maquete</div>
   </div>
 </section>
 
 <section id="dicas">
   <div class="section-title reveal">
-    <span>Planeje sua visita</span>
+    <span>04 — Planeje</span>
     <h2>Dicas Essenciais</h2>
-    <p>Tudo que você precisa saber antes de explorar a Cidade do Futuro.</p>
+    <p>O que ajuda de verdade antes de pisar no Eixo Monumental.</p>
   </div>
   <div class="dicas-grid" id="dicas-container"></div>
 </section>
 
 <footer>
-  <p>Feito com cuidado · <strong>Brasília 3D Experience</strong></p>
-  <p style="margin-top:.5rem">Dados turísticos baseados na Secretaria de Turismo do Distrito Federal</p>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <p class="footer-logo">Brasília<em>3D</em></p>
+      <p>Guia independente da capital modernista — fotos, roteiro e uma maquete 3D para explorar antes de viajar.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Seções</h5>
+      <a href="#galeria">Galeria</a>
+      <a href="#pontos">Pontos Turísticos</a>
+      <a href="#mapa3d">Cidade 3D</a>
+      <a href="#dicas">Dicas</a>
+    </div>
+    <div class="footer-col">
+      <h5>Créditos</h5>
+      <p>Fotos: Wikimedia Commons (CC BY-SA)</p>
+      <p>Dados turísticos: Secretaria de Turismo do DF</p>
+      <p>Pôster: série Capital Modernista</p>
+    </div>
+  </div>
 </footer>
 
 <div id="modal-overlay">
