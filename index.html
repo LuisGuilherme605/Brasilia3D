@@ -44,11 +44,11 @@
     <li><a href="#pontos">Pontos Turísticos</a></li>
     <li><a href="#mapa3d">Cidade 3D</a></li>
     <li><a href="#dicas">Dicas</a></li>
-    <li id="nav-fav" onclick="filterFavorites()">
+    <li id="nav-fav" role="button" tabindex="0" aria-label="Ver favoritos" onclick="filterFavorites()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();filterFavorites();}">
       <span aria-hidden="true">♥</span> Favoritos <span id="fav-nav-count">0</span>
     </li>
   </ul>
-  <button class="hamburger" id="hamburger" aria-label="Menu">
+  <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
     <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
   </button>
 </nav>
