@@ -300,8 +300,12 @@ window.addEventListener('scroll', () => {
 /* ── MOBILE MENU ────────────────────────────────────────────────── */
 const hamburger  = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobile-menu');
-hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
-window.closeMobileMenu = () => { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); };
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open', open);
+  hamburger.setAttribute('aria-expanded', String(open));
+});
+window.closeMobileMenu = () => { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); hamburger.setAttribute('aria-expanded', 'false'); };
 
 updateNavFav();
 
@@ -309,7 +313,7 @@ updateNavFav();
 (function cityCanvas() {
   const canvas = document.getElementById('city-canvas');
   const ctx    = canvas.getContext('2d');
-  let W, H, rotY = 0.5, autoRot = true, dragging = false, lastMX = 0;
+  let W, H, rotY = 0.5, autoRot = true, dragging = false, lastMX = 0, rafId = null;
 
   function resize() { const wrap = document.getElementById('city-canvas-wrapper'); W = canvas.width = wrap.clientWidth; H = canvas.height = wrap.clientHeight; }
 
@@ -386,8 +390,14 @@ updateNavFav();
     if(tw){const tp=proj(tw.cx,tw.h,tw.cz),ap=proj(tw.cx,tw.h+1.3,tw.cz);if(tp&&ap){ctx.beginPath();ctx.moveTo(tp.sx,tp.sy);ctx.lineTo(ap.sx,ap.sy);ctx.strokeStyle='#ddeeff';ctx.lineWidth=1.5;ctx.stroke();ctx.fillStyle=Math.sin(t*3)>0?'#ff2222':'#881111';ctx.beginPath();ctx.arc(ap.sx,ap.sy,2.5,0,Math.PI*2);ctx.fill();}}
     CITY.forEach(m=>{if(!m.lbl)return;const ly=m.t==='tower'?m.h+1.6:m.t==='dome'?m.h+.5:m.t==='cathedral'?m.h+.6:m.h+.45;lbl(m.cx,ly,m.cz,m.lbl,m.col);});
     if(autoRot) rotY+=.003;
-    requestAnimationFrame(draw);
+    rafId = requestAnimationFrame(draw);
   }
+
+  // Pausa o loop quando a aba não está visível — economiza CPU e bateria.
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) { if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; } }
+    else if (rafId === null) { draw(); }
+  });
 
   canvas.addEventListener('mousedown',e=>{dragging=true;autoRot=false;lastMX=e.clientX;});
   window.addEventListener('mousemove',e=>{if(!dragging)return;rotY+=(e.clientX-lastMX)*.006;lastMX=e.clientX;});
