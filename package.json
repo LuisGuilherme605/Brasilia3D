@@ -1,0 +1,46 @@
+{
+  "name": "brasilia3d",
+  "version": "1.0.0",
+  "description": "Guia turístico interativo de Brasília com skyline 3D em canvas, feito em HTML, CSS e JavaScript puro.",
+  "type": "module",
+  "private": true,
+  "homepage": "https://luisguilherme605.github.io/Brasilia3D/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LuisGuilherme605/Brasilia3D.git"
+  },
+  "author": "Luis Guilherme <lg5104891@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "brasilia",
+    "turismo",
+    "canvas",
+    "3d",
+    "javascript",
+    "site-estatico"
+  ],
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "seo": "node scripts/gerar-seo.js",
+    "seo:check": "node scripts/gerar-seo.js --check",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "check": "npm run lint && npm run format:check && npm run seo:check && npm run test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "eslint": "^9.17.0",
+    "globals": "^15.14.0",
+    "jsdom": "^25.0.1",
+    "prettier": "^3.4.2",
+    "vitest": "^2.1.8"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

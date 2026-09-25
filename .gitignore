@@ -1,0 +1,22 @@
+# Dependências
+node_modules/
+
+# Saída de testes e ferramentas
+coverage/
+playwright-report/
+test-results/
+.eslintcache
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+npm-debug.log*

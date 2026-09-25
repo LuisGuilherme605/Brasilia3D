@@ -1,0 +1,8 @@
+node_modules/
+coverage/
+playwright-report/
+test-results/
+src/dados/
+# O bloco de dados estruturados e gerado por scripts/gerar-seo.js.
+index.html
+assets/
