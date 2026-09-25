@@ -27,11 +27,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Liga o Pages automaticamente (enablement) e configura o build.
       - name: Configure Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       # Envia a raiz do repositório como artefato do site.
       - name: Upload artifact
