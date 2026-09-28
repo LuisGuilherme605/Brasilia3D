@@ -2,13 +2,14 @@ import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { codigoPrancha } from '../nucleo/texto.js';
 import { fotoEmCache } from '../nucleo/wikimedia.js';
+import { prenderFoco } from '../nucleo/dom.js';
 
 export default function Modal({ ponto, indice, onFechar }) {
-  const fecharRef = useRef(null);
+  const caixaRef = useRef(null);
   const url = fotoEmCache(ponto.id);
 
   useEffect(() => {
-    fecharRef.current?.focus();
+    return prenderFoco(caixaRef.current);
   }, []);
 
   const onOverlayClick = (e) => {
@@ -27,6 +28,7 @@ export default function Modal({ ponto, indice, onFechar }) {
     >
       <motion.div
         id="modal-box"
+        ref={caixaRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
@@ -35,13 +37,7 @@ export default function Modal({ ponto, indice, onFechar }) {
         exit={{ opacity: 0, y: 18, scale: 0.96 }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
       >
-        <button
-          id="modal-close"
-          type="button"
-          aria-label="Fechar detalhes"
-          ref={fecharRef}
-          onClick={onFechar}
-        >
+        <button id="modal-close" type="button" aria-label="Fechar detalhes" onClick={onFechar}>
           ✕
         </button>
         {url && (
