@@ -12,7 +12,6 @@
     <link rel="canonical" href="https://luisguilherme605.github.io/Brasilia3D/" />
     <meta name="author" content="Luis Guilherme" />
 
-    <!-- Segurança: sem script inline, sem embutir a página em outro site. -->
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self';
@@ -20,7 +19,7 @@
              connect-src https://pt.wikipedia.org https://en.wikipedia.org https://commons.wikimedia.org;
              style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
              font-src https://fonts.gstatic.com;
-             script-src 'self';
+             script-src 'self' 'unsafe-inline';
              base-uri 'self';
              form-action 'none';"
     />
@@ -64,7 +63,6 @@
       href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
 
     <!-- dados-estruturados:inicio -->
   <script type="application/ld+json">
@@ -245,258 +243,7 @@
   <!-- dados-estruturados:fim -->
   </head>
   <body>
-    <a class="skip-link" href="#pontos">Pular para os pontos turísticos</a>
-
-    <div id="progress-bar" aria-hidden="true"></div>
-
-    <nav aria-label="Navegação principal">
-      <a href="#hero" class="nav-logo">Brasília<em>3D</em></a>
-      <ul class="nav-links">
-        <li><a href="#jornada">Jornada</a></li>
-        <li><a href="#galeria">Galeria</a></li>
-        <li><a href="#pontos">Pontos Turísticos</a></li>
-        <li><a href="#mapa3d">Cidade 3D</a></li>
-        <li><a href="#dicas">Dicas</a></li>
-        <li>
-          <button type="button" id="nav-fav" hidden aria-label="Ver apenas os favoritos">
-            <span aria-hidden="true">♥</span> Favoritos <span id="fav-nav-count">0</span>
-          </button>
-        </li>
-      </ul>
-      <button
-        class="hamburger"
-        type="button"
-        id="hamburger"
-        aria-label="Abrir menu"
-        aria-expanded="false"
-        aria-controls="mobile-menu"
-      >
-        <span aria-hidden="true"></span><span aria-hidden="true"></span
-        ><span aria-hidden="true"></span>
-      </button>
-    </nav>
-
-    <div id="mobile-menu">
-      <a href="#jornada">Jornada</a>
-      <a href="#galeria">Galeria</a>
-      <a href="#pontos">Pontos Turísticos</a>
-      <a href="#mapa3d">Cidade 3D</a>
-      <a href="#dicas">Dicas</a>
-      <a href="#pontos" id="mobile-fav"><span aria-hidden="true">♥</span> Favoritos</a>
-    </div>
-
-    <header id="hero">
-      <div class="hero-grid">
-        <div class="hero-text">
-          <p class="hero-kicker">Guia da capital · Patrimônio Mundial da UNESCO desde 1987</p>
-          <h1 class="hero-title">Brasília<span>.</span></h1>
-          <p class="hero-sub">
-            A cidade que Lúcio Costa traçou e Oscar Niemeyer ergueu em concreto e curva, no meio do
-            cerrado — inaugurada em 1960 e, até hoje, sem nada parecido no mundo.
-          </p>
-          <div class="hero-actions">
-            <a href="#pontos" class="btn btn-solid">Ver pontos turísticos</a>
-            <a href="#galeria" class="btn">Galeria de fotos</a>
-          </div>
-        </div>
-        <figure class="hero-poster">
-          <picture>
-            <source srcset="assets/poster-brasilia.webp" type="image/webp" />
-            <img
-              src="assets/poster-brasilia.png"
-              alt="Pôster modernista de Brasília com as torres e as cúpulas do Congresso Nacional"
-              width="1200"
-              height="1697"
-              fetchpriority="high"
-              decoding="async"
-            />
-          </picture>
-          <figcaption>Pôster da casa — série Capital Modernista</figcaption>
-        </figure>
-      </div>
-    </header>
-
-    <section id="jornada" aria-label="Jornada pelos pontos turísticos de Brasília">
-      <div class="jornada-viewport">
-        <!-- cenas inseridas via JS -->
-      </div>
-      <div class="jornada-barra">
-        <div class="jornada-dots" role="tablist" aria-label="Pontos turísticos"></div>
-        <span class="jornada-contador">01 / 06</span>
-        <span class="jornada-dica">Role para explorar</span>
-      </div>
-    </section>
-
-    <main>
-      <section id="stats" aria-label="Brasília em números">
-        <div class="stat-item">
-          <div class="num">3,1 mi</div>
-          <p>habitantes</p>
-        </div>
-        <div class="stat-item">
-          <div class="num">1960</div>
-          <p>ano de fundação</p>
-        </div>
-        <div class="stat-item">
-          <div class="num">1.000</div>
-          <p>km² de área</p>
-        </div>
-        <div class="stat-item">
-          <div class="num">1.172 m</div>
-          <p>de altitude</p>
-        </div>
-        <div class="stat-item">
-          <div class="num">30+</div>
-          <p>pontos turísticos</p>
-        </div>
-      </section>
-
-      <section id="galeria" aria-labelledby="titulo-galeria">
-        <div class="section-title reveal">
-          <span>Fotografia</span>
-          <h2 id="titulo-galeria">Galeria de Brasília</h2>
-          <p>A cidade em imagens: dos monumentos da Esplanada ao cerrado que a cerca.</p>
-        </div>
-        <div class="gallery-grid reveal" id="gallery-grid"></div>
-        <p class="gallery-note">Fotos: Wikimedia Commons (CC BY-SA) · Clique para ampliar</p>
-      </section>
-
-      <section id="pontos" aria-labelledby="titulo-pontos">
-        <div class="section-title reveal">
-          <span>Roteiro</span>
-          <h2 id="titulo-pontos">Pontos Turísticos</h2>
-          <p>
-            De palácios e museus a parques de cerrado nativo — o essencial para montar seu roteiro.
-          </p>
-        </div>
-        <div class="filter-wrap reveal">
-          <div class="filter-group" role="group" aria-label="Filtrar por categoria">
-            <button class="filter-btn active" type="button" data-cat="todos" aria-pressed="true">
-              Todos
-            </button>
-            <button class="filter-btn" type="button" data-cat="Historia" aria-pressed="false">
-              História
-            </button>
-            <button class="filter-btn" type="button" data-cat="Cultura" aria-pressed="false">
-              Cultura
-            </button>
-            <button class="filter-btn" type="button" data-cat="Natureza" aria-pressed="false">
-              Natureza
-            </button>
-            <button class="filter-btn" type="button" data-cat="Lazer" aria-pressed="false">
-              Lazer
-            </button>
-            <button class="filter-btn" type="button" data-cat="Gastronomia" aria-pressed="false">
-              Gastronomia
-            </button>
-          </div>
-          <div class="search-wrap">
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-              aria-hidden="true"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <path d="m21 21-4.35-4.35" />
-            </svg>
-            <label class="sr-only" for="search-input">Buscar ponto turístico</label>
-            <input
-              class="search-input"
-              id="search-input"
-              type="search"
-              placeholder="Buscar ponto…"
-              autocomplete="off"
-            />
-          </div>
-          <span class="results-count" id="results-count" role="status" aria-live="polite"></span>
-        </div>
-        <div class="cards-grid" id="cards-container"></div>
-      </section>
-
-      <section id="mapa3d" aria-labelledby="titulo-mapa">
-        <div class="section-title reveal">
-          <span>Maquete</span>
-          <h2 id="titulo-mapa">Skyline 3D</h2>
-          <p>
-            Uma maquete eletrônica dos monumentos mais marcantes do Plano Piloto. Arraste para
-            girar.
-          </p>
-        </div>
-        <div id="city-canvas-wrapper" class="reveal">
-          <canvas
-            id="city-canvas"
-            tabindex="0"
-            role="img"
-            aria-label="Maquete 3D de Brasília com o Congresso Nacional, a Catedral, a Torre de TV, os palácios do Planalto e do Itamaraty, o Museu Nacional e o Lago Paranoá. Use as setas para girar."
-          ></canvas>
-          <p class="canvas-label">Arraste para girar</p>
-        </div>
-      </section>
-
-      <section id="dicas" aria-labelledby="titulo-dicas">
-        <div class="section-title reveal">
-          <span>Planeje</span>
-          <h2 id="titulo-dicas">Dicas Essenciais</h2>
-          <p>O que ajuda de verdade antes de pisar no Eixo Monumental.</p>
-        </div>
-        <div class="dicas-grid" id="dicas-container"></div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <p class="footer-logo">Brasília<em>3D</em></p>
-          <p>
-            Guia independente da capital modernista — fotos, roteiro e uma maquete 3D para explorar
-            antes de viajar.
-          </p>
-        </div>
-        <div class="footer-col">
-          <h2>Seções</h2>
-          <a href="#jornada">Jornada</a>
-          <a href="#galeria">Galeria</a>
-          <a href="#pontos">Pontos Turísticos</a>
-          <a href="#mapa3d">Cidade 3D</a>
-          <a href="#dicas">Dicas</a>
-        </div>
-        <div class="footer-col">
-          <h2>Créditos</h2>
-          <p>Fotos: Wikimedia Commons (CC BY-SA)</p>
-          <p>Dados turísticos: Secretaria de Turismo do DF</p>
-          <p>Pôster: série Capital Modernista</p>
-        </div>
-      </div>
-    </footer>
-
-    <div id="modal-overlay">
-      <div id="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-        <button id="modal-close" type="button" aria-label="Fechar detalhes">✕</button>
-        <img id="modal-photo" src="" alt="" loading="lazy" hidden />
-        <div id="modal-content">
-          <div id="modal-tag"></div>
-          <h2 id="modal-title"></h2>
-          <p id="modal-desc"></p>
-          <div id="modal-info"></div>
-        </div>
-      </div>
-    </div>
-
-    <div id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada">
-      <button id="lightbox-close" type="button" aria-label="Fechar foto">✕</button>
-      <img id="lightbox-img" src="" alt="" />
-      <p id="lightbox-caption"></p>
-      <p id="lightbox-credit"></p>
-    </div>
-
-    <button id="back-to-top" type="button" aria-label="Voltar ao topo">
-      <span aria-hidden="true">↑</span>
-    </button>
-
-    <script type="module" src="src/main.js"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

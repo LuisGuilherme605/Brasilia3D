@@ -2,7 +2,6 @@ import { defineConfig, devices } from '@playwright/test';
 
 const PORTA = 4173;
 
-// Permite apontar para um Chromium já instalado na máquina, sem baixar outro.
 const chromiumLocal = process.env.PLAYWRIGHT_CHROMIUM_PATH;
 
 export default defineConfig({
@@ -18,7 +17,7 @@ export default defineConfig({
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {
-    command: `python3 -m http.server ${PORTA} --bind 127.0.0.1`,
+    command: `npm run build && npx vite preview --port ${PORTA} --strictPort`,
     url: `http://127.0.0.1:${PORTA}`,
     reuseExistingServer: !process.env.CI,
     stdout: 'ignore',
