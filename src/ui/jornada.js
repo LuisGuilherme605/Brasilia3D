@@ -16,15 +16,15 @@ function criarCena(ponto, indice) {
 
   div.innerHTML =
     `<div class="jornada-fundo">` +
-      `<img class="jornada-img" alt="${ponto.nome}" draggable="false" />` +
-      `<div class="jornada-overlay"></div>` +
+    `<img class="jornada-img" alt="${ponto.nome}" draggable="false" />` +
+    `<div class="jornada-overlay"></div>` +
     `</div>` +
     `<div class="jornada-texto">` +
-      `<span class="jornada-numero">${formatarNumero(indice)}</span>` +
-      `<span class="jornada-cat">${ponto.tag}</span>` +
-      `<h3 class="jornada-nome">${ponto.nome}</h3>` +
-      `<p class="jornada-desc">${ponto.desc.split('.')[0]}.</p>` +
-      `<span class="jornada-info">${ponto.horario} · ${ponto.entrada}</span>` +
+    `<span class="jornada-numero">${formatarNumero(indice)}</span>` +
+    `<span class="jornada-cat">${ponto.tag}</span>` +
+    `<h3 class="jornada-nome">${ponto.nome}</h3>` +
+    `<p class="jornada-desc">${ponto.desc.split('.')[0]}.</p>` +
+    `<span class="jornada-info">${ponto.horario} · ${ponto.entrada}</span>` +
     `</div>`;
 
   return div;
@@ -68,7 +68,7 @@ export function iniciarJornada() {
     viewport.appendChild(cena);
     cenas.push(cena);
 
-    buscarFoto(`jornada-${ponto.id}`, ponto.wikis).then(url => {
+    buscarFoto(`jornada-${ponto.id}`, ponto.wikis).then((url) => {
       if (!url) return;
       const img = cena.querySelector('.jornada-img');
       if (!img) return;
@@ -127,7 +127,8 @@ export function iniciarJornada() {
     }
 
     const contadorEl = secao.querySelector('.jornada-contador');
-    if (contadorEl) contadorEl.textContent = `${formatarNumero(cenaAtual)} / ${formatarNumero(totalCenas - 1)}`;
+    if (contadorEl)
+      contadorEl.textContent = `${formatarNumero(cenaAtual)} / ${formatarNumero(totalCenas - 1)}`;
 
     cenas.forEach((cena, i) => {
       if (i === cenaAtual) {
@@ -167,14 +168,18 @@ export function iniciarJornada() {
   }
 
   let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-      atualizar();
-      ticking = false;
-    });
-  }, { passive: true });
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        atualizar();
+        ticking = false;
+      });
+    },
+    { passive: true },
+  );
 
   atualizar();
 }
