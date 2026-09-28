@@ -17,6 +17,10 @@ desktop.ini
 .idea/
 *.swp
 
+# Variáveis de ambiente
+.env
+.env.*
+
 # Logs
 *.log
 npm-debug.log*
