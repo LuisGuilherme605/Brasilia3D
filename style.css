@@ -30,8 +30,6 @@ html {
 }
 body {
   background-color: var(--paper);
-  /* Malha de prancha: dois gradientes de 1px cruzados, fixos ao viewport para
-     a página inteira parecer desenhada sobre a mesma folha. */
   background-image:
     linear-gradient(var(--malha) 1px, transparent 1px),
     linear-gradient(90deg, var(--malha) 1px, transparent 1px);
@@ -41,6 +39,17 @@ body {
   font-family: var(--font-sans);
   overflow-x: hidden;
   line-height: 1.6;
+}
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  mix-blend-mode: multiply;
 }
 ::selection {
   background: var(--acento);
@@ -258,8 +267,8 @@ nav.nav-escura #nav-fav {
 .btn:hover {
   background: var(--ink);
   color: var(--paper);
-  transform: translate(-2px, -2px);
-  box-shadow: 4px 4px 0 var(--acento);
+  transform: translate(-2px, -3px);
+  box-shadow: 4px 6px 0 var(--acento);
 }
 .btn-solid {
   background: var(--ink);
@@ -358,12 +367,14 @@ nav.nav-escura #nav-fav {
   border: 1px solid var(--line-strong);
   background: #fff;
   padding: 10px;
-  box-shadow: 14px 14px 0 rgba(31, 78, 140, 0.16);
-  transform: rotate(1.4deg);
-  transition: transform 0.3s ease;
+  box-shadow:
+    14px 14px 0 rgba(15, 109, 106, 0.14),
+    0 4px 24px rgba(16, 22, 31, 0.08);
+  transform: rotate(1.8deg);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .hero-poster:hover img {
-  transform: rotate(0deg);
+  transform: rotate(-0.3deg);
 }
 .hero-poster figcaption {
   margin-top: 1rem;
@@ -442,7 +453,7 @@ nav.nav-escura #nav-fav {
 .section-title {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 4.5rem 0 2.5rem;
+  padding: 6.5rem 0 3rem;
 }
 .section-title span {
   font-family: var(--font-mono);
@@ -472,10 +483,13 @@ section {
   padding-left: 5%;
   padding-right: 5%;
 }
+section + section {
+  border-top: 1px solid var(--line);
+}
 
 /* Gallery */
 #galeria {
-  padding-bottom: 5.5rem;
+  padding-bottom: 7rem;
 }
 .gallery-grid {
   max-width: 1180px;
@@ -504,6 +518,10 @@ section {
   border: 1px solid var(--line-strong);
   display: block;
   width: 100%;
+  transition: border-color 0.3s ease;
+}
+.gallery-item:hover {
+  border-color: var(--acento);
 }
 .gallery-item.tall {
   grid-row: span 2;
@@ -519,14 +537,16 @@ section {
   opacity: 0;
   transition:
     opacity 0.5s ease,
-    transform 0.45s ease;
-  filter: saturate(0.92);
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.5s ease;
+  filter: saturate(0.82) contrast(1.04) grayscale(0.12);
 }
 .gallery-item img.carregada {
   opacity: 1;
 }
 .gallery-item:hover img {
-  transform: scale(1.05);
+  transform: scale(1.06);
+  filter: saturate(1) contrast(1.02) grayscale(0);
 }
 .gallery-overlay {
   position: absolute;
@@ -643,7 +663,7 @@ section {
 
 /* Cards */
 #pontos {
-  padding-bottom: 5.5rem;
+  padding-bottom: 7rem;
 }
 .cards-grid {
   max-width: 1180px;
@@ -659,12 +679,14 @@ section {
   background: var(--paper-2);
   border: 1px solid var(--line-strong);
   transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease;
 }
 .card:hover {
-  transform: translate(-4px, -4px);
-  box-shadow: 8px 8px 0 rgba(15, 109, 106, 0.2);
+  transform: translate(-3px, -5px);
+  box-shadow: 6px 10px 0 rgba(15, 109, 106, 0.18);
+  border-color: var(--acento);
 }
 .card.hidden {
   display: none;
@@ -698,10 +720,18 @@ section {
   object-fit: cover;
   z-index: 2;
   opacity: 0;
-  transition: opacity 0.5s;
+  transition:
+    opacity 0.5s,
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.5s ease;
+  filter: saturate(0.8) contrast(1.05) grayscale(0.15);
 }
 .card-photo .card-real-img.loaded {
   opacity: 1;
+}
+.card:hover .card-photo .card-real-img {
+  transform: scale(1.04);
+  filter: saturate(1) contrast(1) grayscale(0);
 }
 .card-photo .card-art {
   position: absolute;
@@ -869,7 +899,15 @@ section {
   overflow: hidden;
   border: 1px solid var(--line-strong);
   background: var(--paper-2);
-  box-shadow: 14px 14px 0 rgba(15, 109, 106, 0.16);
+  box-shadow:
+    14px 14px 0 rgba(15, 109, 106, 0.16),
+    0 2px 20px rgba(16, 22, 31, 0.06);
+  transition: box-shadow 0.4s ease;
+}
+#city-canvas-wrapper:hover {
+  box-shadow:
+    14px 14px 0 rgba(15, 109, 106, 0.22),
+    0 4px 32px rgba(16, 22, 31, 0.1);
 }
 #city-canvas {
   width: 100%;
@@ -888,7 +926,7 @@ section {
 
 /* Dicas */
 #dicas {
-  padding-bottom: 6rem;
+  padding-bottom: 7.5rem;
 }
 .dicas-grid {
   max-width: 1180px;
@@ -899,11 +937,16 @@ section {
 }
 .dica-card {
   border-top: 2px solid var(--ink);
-  padding-top: 1.1rem;
-  transition: border-color 0.25s;
+  border-left: 3px solid transparent;
+  padding: 1.3rem 0 0 1rem;
+  transition:
+    border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    padding-left 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .dica-card:hover {
   border-top-color: var(--acento);
+  border-left-color: var(--acento);
+  padding-left: 1.4rem;
 }
 .dica-card h3 {
   font-size: 0.95rem;
@@ -956,7 +999,7 @@ section {
   transition: opacity 0.8s ease;
   will-change: transform;
   transform: scale(1.15);
-  filter: saturate(0.85) brightness(0.7);
+  filter: saturate(0.78) brightness(0.68) contrast(1.08);
 }
 
 .jornada-img.carregada {
@@ -1147,7 +1190,7 @@ section {
 footer {
   border-top: 2px solid var(--ink);
   background: var(--paper-2);
-  padding: 3.5rem 5% 3rem;
+  padding: 5rem 5% 4rem;
 }
 .footer-grid {
   max-width: 1180px;
@@ -1229,7 +1272,9 @@ footer {
   object-fit: contain;
   border: 6px solid var(--paper);
   background: var(--paper);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(231, 231, 226, 0.1);
 }
 #lightbox-caption {
   color: var(--paper);
