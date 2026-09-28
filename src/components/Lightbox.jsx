@@ -1,16 +1,18 @@
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { prenderFoco } from '../nucleo/dom.js';
 
 export default function Lightbox({ url, legenda, onFechar }) {
-  const fecharRef = useRef(null);
+  const overlayRef = useRef(null);
 
   useEffect(() => {
-    fecharRef.current?.focus();
+    return prenderFoco(overlayRef.current);
   }, []);
 
   return (
     <motion.div
       id="lightbox"
+      ref={overlayRef}
       className="open"
       role="dialog"
       aria-modal="true"
@@ -23,13 +25,7 @@ export default function Lightbox({ url, legenda, onFechar }) {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
     >
-      <button
-        id="lightbox-close"
-        type="button"
-        aria-label="Fechar foto"
-        ref={fecharRef}
-        onClick={onFechar}
-      >
+      <button id="lightbox-close" type="button" aria-label="Fechar foto" onClick={onFechar}>
         ✕
       </button>
       <motion.img
