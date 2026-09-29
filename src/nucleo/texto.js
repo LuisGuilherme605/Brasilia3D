@@ -26,4 +26,5 @@ export const codigoPrancha = (indice) => `PL-${String(indice + 1).padStart(2, '0
 
 // A nota vem dos dados como estrelas ('★★★★☆'). Na prancha ela vira número:
 // combina com o resto dos dados e ocupa menos espaço no rodapé do card.
-export const notaDeEstrelas = (estrelas) => `${[...(estrelas ?? '')].filter((c) => c === '★').length}/5`;
+export const notaDeEstrelas = (estrelas) =>
+  `${[...(estrelas ?? '')].filter((c) => c === '★').length}/5`;
