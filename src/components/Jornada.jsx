@@ -15,7 +15,8 @@ function JornadaImagem({ ponto }) {
   return (
     <img
       className={`jornada-img${carregada ? ' carregada' : ''}`}
-      src={url || ''}
+      src={url || undefined}
+      decoding="async"
       alt={ponto.nome}
       draggable={false}
       onLoad={() => setCarregada(true)}
