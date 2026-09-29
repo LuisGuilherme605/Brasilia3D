@@ -7,7 +7,7 @@ export function useFoto(chave, wikis) {
   useEffect(() => {
     let cancelado = false;
     buscarFoto(chave, wikis).then((resultado) => {
-      if (!cancelado && resultado) setUrl(resultado);
+      if (!cancelado) setUrl(resultado);
     });
     return () => {
       cancelado = true;
