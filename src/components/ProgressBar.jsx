@@ -7,8 +7,9 @@ export default function ProgressBar() {
     const atualizar = () => {
       const pos = window.scrollY;
       const total = document.documentElement.scrollHeight - window.innerHeight;
-      setLargura(total > 0 ? (pos / total) * 100 : 0);
+      setLargura(total > 0 ? Math.min(100, Math.max(0, (pos / total) * 100)) : 0);
     };
+    atualizar();
     window.addEventListener('scroll', atualizar, { passive: true });
     return () => window.removeEventListener('scroll', atualizar);
   }, []);
