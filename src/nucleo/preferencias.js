@@ -5,6 +5,10 @@ const consulta =
 
 export const movimentoReduzido = () => consulta?.matches ?? false;
 
+/** Avisa quando a preferência muda; devolve a função que cancela o aviso. */
 export function aoMudarMovimento(callback) {
-  consulta?.addEventListener('change', (evento) => callback(evento.matches));
+  if (!consulta) return () => {};
+  const ouvinte = (evento) => callback(evento.matches);
+  consulta.addEventListener('change', ouvinte);
+  return () => consulta.removeEventListener('change', ouvinte);
 }
