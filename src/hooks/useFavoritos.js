@@ -10,9 +10,21 @@ let favoritos = new Set(
   })(),
 );
 
+// Outra aba alterou os favoritos: recarrega do storage para não sobrescrever a lista dela.
+function aoMudarStorage(evento) {
+  if (evento.key !== CHAVE) return;
+  const salvos = lerJSON(CHAVE, []);
+  favoritos = new Set(Array.isArray(salvos) ? salvos : []);
+  ouvintes.forEach((cb) => cb());
+}
+
 function subscribe(cb) {
+  if (ouvintes.size === 0) window.addEventListener('storage', aoMudarStorage);
   ouvintes.add(cb);
-  return () => ouvintes.delete(cb);
+  return () => {
+    ouvintes.delete(cb);
+    if (ouvintes.size === 0) window.removeEventListener('storage', aoMudarStorage);
+  };
 }
 
 function getSnapshot() {
