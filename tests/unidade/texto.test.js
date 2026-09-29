@@ -29,6 +29,11 @@ describe('resumir', () => {
     expect(resumo).not.toContain('democracia b');
   });
 
+  it('devolve vazio quando o ponto não tem descrição', () => {
+    expect(resumir(undefined)).toBe('');
+    expect(resumir('')).toBe('');
+  });
+
   it('não deixa pontuação colada nas reticências', () => {
     const resumo = resumir('Projetado por Niemeyer e inaugurado em 1960. Fica na Esplanada', 45);
     expect(resumo).toBe('Projetado por Niemeyer e inaugurado em 1960…');
