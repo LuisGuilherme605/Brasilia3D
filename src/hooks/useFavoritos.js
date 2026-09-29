@@ -10,6 +10,16 @@ let favoritos = new Set(
   })(),
 );
 
+// Mantém várias abas abertas em sincronia: o evento só dispara nas outras abas.
+if (typeof window !== 'undefined') {
+  window.addEventListener('storage', (evento) => {
+    if (evento.key !== CHAVE) return;
+    const salvos = lerJSON(CHAVE, []);
+    favoritos = new Set(Array.isArray(salvos) ? salvos : []);
+    ouvintes.forEach((cb) => cb());
+  });
+}
+
 function subscribe(cb) {
   ouvintes.add(cb);
   return () => ouvintes.delete(cb);
