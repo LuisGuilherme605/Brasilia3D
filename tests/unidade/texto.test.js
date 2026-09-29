@@ -49,3 +49,14 @@ describe('notaDeEstrelas', () => {
     expect(notaDeEstrelas('★★★★☆')).toBe('4/5');
   });
 });
+
+describe('valores ausentes nos dados', () => {
+  it('resumir devolve vazio em vez de quebrar', () => {
+    expect(resumir(undefined)).toBe('');
+    expect(resumir(null, 30)).toBe('');
+  });
+
+  it('notaDeEstrelas trata nota ausente como 0/5', () => {
+    expect(notaDeEstrelas(undefined)).toBe('0/5');
+  });
+});
