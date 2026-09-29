@@ -22,6 +22,11 @@ describe('resumir', () => {
     expect(resumir('Congresso Nacional', 110)).toBe('Congresso Nacional');
   });
 
+  it('aceita valor ausente sem quebrar', () => {
+    expect(resumir(undefined)).toBe('');
+    expect(resumir(null, 20)).toBe('');
+  });
+
   it('corta no espaço para não partir palavra ao meio', () => {
     const resumo = resumir('Símbolo da democracia brasileira projetado por Niemeyer', 30);
     expect(resumo.endsWith('…')).toBe(true);
