@@ -26,6 +26,8 @@ export function ehFotoUtilizavel(url, original) {
 // Quebra 'pt:Catedral_de_Brasília' em idioma e título do artigo.
 export function separarFonte(fonte) {
   const corte = fonte.indexOf(':');
+  // Sem prefixo de idioma, assume português em vez de cortar o título.
+  if (corte === -1) return { idioma: 'pt', titulo: fonte };
   return { idioma: fonte.slice(0, corte), titulo: fonte.slice(corte + 1) };
 }
 
