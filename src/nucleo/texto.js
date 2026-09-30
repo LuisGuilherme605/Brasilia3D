@@ -13,7 +13,8 @@ export const normalizar = (valor) =>
 export function resumir(valor, limite = 110) {
   if (valor.length <= limite) return valor;
   const corte = valor.slice(0, limite);
-  const espaco = corte.lastIndexOf(' ');
+  // Se o limite cai exatamente no fim de uma palavra, ela inteira cabe.
+  const espaco = valor[limite] === ' ' ? limite : corte.lastIndexOf(' ');
   const base = espaco > limite * 0.6 ? corte.slice(0, espaco) : corte;
   // Tira pontuação da ponta para não sair "1960.…".
   return `${base.replace(/[\s.,;:—-]+$/, '')}…`;

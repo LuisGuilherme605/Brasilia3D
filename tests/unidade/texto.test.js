@@ -29,6 +29,10 @@ describe('resumir', () => {
     expect(resumo).not.toContain('democracia b');
   });
 
+  it('mantém a última palavra quando o limite cai no fim dela', () => {
+    expect(resumir('Palácio da Alvorada e mais um texto', 19)).toBe('Palácio da Alvorada…');
+  });
+
   it('não deixa pontuação colada nas reticências', () => {
     const resumo = resumir('Projetado por Niemeyer e inaugurado em 1960. Fica na Esplanada', 45);
     expect(resumo).toBe('Projetado por Niemeyer e inaugurado em 1960…');
