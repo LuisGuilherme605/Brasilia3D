@@ -34,6 +34,13 @@ describe('filtrarPontos', () => {
     expect(filtrarPontos(pontos, { categoria: CATEGORIA_FAVORITOS, favoritos })).toEqual([1, 2]);
   });
 
+  it('combina favoritos com busca', () => {
+    const favoritos = new Set([1, 2]);
+    expect(
+      filtrarPontos(pontos, { categoria: CATEGORIA_FAVORITOS, favoritos, busca: ' NACIONAL ' }),
+    ).toEqual([2]);
+  });
+
   it('não quebra em favoritos sem nenhum favorito marcado', () => {
     expect(filtrarPontos(pontos, { categoria: CATEGORIA_FAVORITOS })).toEqual([]);
   });
