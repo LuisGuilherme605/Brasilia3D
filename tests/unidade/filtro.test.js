@@ -25,6 +25,20 @@ describe('filtrarPontos', () => {
     expect(filtrarPontos(pontos, { busca: 'brasilia' })).toEqual([2]);
   });
 
+  it('ignora espaços sobrando na busca', () => {
+    expect(filtrarPontos(pontos, { busca: '  catedral ' })).toEqual([1]);
+  });
+
+  it('aplica a busca dentro dos favoritos', () => {
+    const favoritos = new Set([0, 2]);
+    expect(
+      filtrarPontos(pontos, { categoria: CATEGORIA_FAVORITOS, favoritos, busca: 'nacional' }),
+    ).toEqual([0, 2]);
+    expect(
+      filtrarPontos(pontos, { categoria: CATEGORIA_FAVORITOS, favoritos, busca: 'catedral' }),
+    ).toEqual([]);
+  });
+
   it('combina categoria e busca', () => {
     expect(filtrarPontos(pontos, { categoria: 'Historia', busca: 'catedral' })).toEqual([]);
   });
