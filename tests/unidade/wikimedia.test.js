@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { ehFotoUtilizavel, separarFonte, urlResumo } from '../../src/nucleo/wikimedia.js';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { ehFotoUtilizavel, separarFonte, urlResumo, buscarFoto } from '../../src/nucleo/wikimedia.js';
 
 describe('ehFotoUtilizavel', () => {
   it('aceita uma foto grande em jpg', () => {
@@ -46,5 +46,23 @@ describe('urlResumo', () => {
     expect(urlResumo('pt', 'Palácio do Planalto')).toBe(
       'https://pt.wikipedia.org/api/rest_v1/page/summary/Pal%C3%A1cio%20do%20Planalto',
     );
+  });
+});
+
+describe('buscarFoto', () => {
+  afterEach(() => vi.unstubAllGlobals());
+
+  it('não guarda ausência em cache quando a rede falha', async () => {
+    const fetchMock = vi
+      .fn()
+      .mockRejectedValueOnce(new Error('offline'))
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ originalimage: { source: 'https://x.org/foto.jpg', width: 900 } }),
+      });
+    vi.stubGlobal('fetch', fetchMock);
+
+    expect(await buscarFoto('teste-rede', ['pt:Catedral'])).toBeNull();
+    expect(await buscarFoto('teste-rede', ['pt:Catedral'])).toBe('https://x.org/foto.jpg');
   });
 });
