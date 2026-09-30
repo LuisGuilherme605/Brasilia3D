@@ -11,8 +11,9 @@ export const normalizar = (valor) =>
 
 // Corta no limite sem partir palavra ao meio.
 export function resumir(valor, limite = 110) {
-  if (valor.length <= limite) return valor;
-  const corte = valor.slice(0, limite);
+  const texto = (valor ?? '').toString();
+  if (texto.length <= limite) return texto;
+  const corte = texto.slice(0, limite);
   const espaco = corte.lastIndexOf(' ');
   const base = espaco > limite * 0.6 ? corte.slice(0, espaco) : corte;
   // Tira pontuação da ponta para não sair "1960.…".

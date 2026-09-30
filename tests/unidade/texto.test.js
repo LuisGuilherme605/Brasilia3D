@@ -18,6 +18,11 @@ describe('normalizar', () => {
 });
 
 describe('resumir', () => {
+  it('devolve string vazia quando não há texto', () => {
+    expect(resumir(undefined)).toBe('');
+    expect(resumir(null)).toBe('');
+  });
+
   it('devolve o texto inteiro quando cabe no limite', () => {
     expect(resumir('Congresso Nacional', 110)).toBe('Congresso Nacional');
   });
