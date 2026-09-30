@@ -7,6 +7,7 @@ export const normalizar = (valor) =>
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
+    .replace(/\s+/g, ' ')
     .trim();
 
 // Corta no limite sem partir palavra ao meio.
