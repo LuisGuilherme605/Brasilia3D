@@ -15,6 +15,14 @@ describe('ehFotoUtilizavel', () => {
     expect(ehFotoUtilizavel('https://x/logo-gov.png', { width: 900 })).toBe(false);
   });
 
+  it('reconhece brasão mesmo com o nome do arquivo codificado na url', () => {
+    expect(ehFotoUtilizavel('https://x/Bras%C3%A3o_do_DF.png', { width: 900 })).toBe(false);
+  });
+
+  it('não confunde palavras que só contêm "logo" com logotipo', () => {
+    expect(ehFotoUtilizavel('https://x/Catalogo_de_obras.jpg', { width: 900 })).toBe(true);
+  });
+
   it('rejeita imagem pequena demais para ser foto', () => {
     expect(ehFotoUtilizavel('https://x/mini.jpg', { width: 120 })).toBe(false);
   });

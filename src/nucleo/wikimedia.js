@@ -5,7 +5,8 @@
 const TEMPO_LIMITE_MS = 5000;
 const LARGURA_MINIMA = 400;
 const PREFIXO_DIRETO = 'direct:';
-const NAO_FOTOGRAFICO = /logo|brand|icon|seal|bras[aã]o|marca|badge|escudo/i;
+// Só conta no começo de uma palavra: "Catalogo_2019.jpg" não é um logotipo.
+const NAO_FOTOGRAFICO = /(?:^|[^a-z])(?:logo|brand|icon|seal|bras[aã]o|marca|badge|escudo)/i;
 
 /** @type {Map<string|number, string|null>} */
 const cache = new Map();
@@ -17,10 +18,19 @@ export function ehFotoUtilizavel(url, original) {
   if (!url) return false;
   const minuscula = url.toLowerCase();
   if (minuscula.includes('.svg')) return false;
-  if (NAO_FOTOGRAFICO.test(minuscula)) return false;
+  if (NAO_FOTOGRAFICO.test(decodificar(minuscula))) return false;
   if (original && typeof original.width === 'number' && original.width < LARGURA_MINIMA)
     return false;
   return true;
+}
+
+// Nomes de arquivo vêm com %C3%A3 no lugar de "ã"; sem decodificar, "Brasão" escapa do filtro.
+function decodificar(texto) {
+  try {
+    return decodeURIComponent(texto);
+  } catch {
+    return texto;
+  }
 }
 
 // Quebra 'pt:Catedral_de_Brasília' em idioma e título do artigo.
