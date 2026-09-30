@@ -1,4 +1,4 @@
-// Normalização de texto para busca: sem acento, sem caixa, sem espaço sobrando.
+// Normalização de texto para busca: sem acento, sem caixa, sem espaço sobrando (inclusive no meio).
 // Assim "brasilia" encontra "Brasília" e "itamaraty " encontra "Itamaraty".
 
 export const normalizar = (valor) =>
@@ -7,6 +7,7 @@ export const normalizar = (valor) =>
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
+    .replace(/\s+/g, ' ')
     .trim();
 
 // Corta no limite sem partir palavra ao meio.

@@ -11,6 +11,10 @@ describe('normalizar', () => {
     expect(normalizar('  ITAMARATY  ')).toBe('itamaraty');
   });
 
+  it('junta espaços repetidos no meio da busca', () => {
+    expect(normalizar('museu   nacional')).toBe('museu nacional');
+  });
+
   it('trata valores ausentes sem quebrar', () => {
     expect(normalizar(null)).toBe('');
     expect(normalizar(undefined)).toBe('');
