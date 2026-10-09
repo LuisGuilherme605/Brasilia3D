@@ -3,16 +3,27 @@ import { lerJSON, gravarJSON } from '../nucleo/armazenamento.js';
 
 const CHAVE = 'brasilia3d_favorites';
 const ouvintes = new Set();
-let favoritos = new Set(
-  (() => {
-    const salvos = lerJSON(CHAVE, []);
-    return Array.isArray(salvos) ? salvos : [];
-  })(),
-);
+let favoritos = new Set(lerSalvos());
+
+function lerSalvos() {
+  const salvos = lerJSON(CHAVE, []);
+  return Array.isArray(salvos) ? salvos : [];
+}
+
+// Mantém duas abas abertas em sincronia quando os favoritos mudam em uma delas.
+function aoMudarStorage(e) {
+  if (e.key !== null && e.key !== CHAVE) return;
+  favoritos = new Set(lerSalvos());
+  ouvintes.forEach((cb) => cb());
+}
 
 function subscribe(cb) {
+  if (ouvintes.size === 0) window.addEventListener('storage', aoMudarStorage);
   ouvintes.add(cb);
-  return () => ouvintes.delete(cb);
+  return () => {
+    ouvintes.delete(cb);
+    if (ouvintes.size === 0) window.removeEventListener('storage', aoMudarStorage);
+  };
 }
 
 function getSnapshot() {
