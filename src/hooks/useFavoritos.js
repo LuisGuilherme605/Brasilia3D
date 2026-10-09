@@ -10,6 +10,16 @@ let favoritos = new Set(
   })(),
 );
 
+// Mantém abas abertas ao mesmo tempo em sincronia quando os favoritos mudam em outra.
+if (typeof window !== 'undefined') {
+  window.addEventListener('storage', (e) => {
+    if (e.key !== CHAVE) return;
+    const salvos = lerJSON(CHAVE, []);
+    favoritos = new Set(Array.isArray(salvos) ? salvos : []);
+    ouvintes.forEach((cb) => cb());
+  });
+}
+
 function subscribe(cb) {
   ouvintes.add(cb);
   return () => ouvintes.delete(cb);
