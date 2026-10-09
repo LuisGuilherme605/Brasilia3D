@@ -3,12 +3,22 @@ import { lerJSON, gravarJSON } from '../nucleo/armazenamento.js';
 
 const CHAVE = 'brasilia3d_favorites';
 const ouvintes = new Set();
-let favoritos = new Set(
-  (() => {
-    const salvos = lerJSON(CHAVE, []);
-    return Array.isArray(salvos) ? salvos : [];
-  })(),
-);
+
+function lerSalvos() {
+  const salvos = lerJSON(CHAVE, []);
+  return new Set(Array.isArray(salvos) ? salvos : []);
+}
+
+let favoritos = lerSalvos();
+
+// Favoritar numa aba precisa refletir nas outras abertas do site.
+if (typeof window !== 'undefined') {
+  window.addEventListener('storage', (evento) => {
+    if (evento.key !== CHAVE && evento.key !== null) return;
+    favoritos = lerSalvos();
+    ouvintes.forEach((cb) => cb());
+  });
+}
 
 function subscribe(cb) {
   ouvintes.add(cb);
