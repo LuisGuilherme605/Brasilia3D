@@ -53,4 +53,9 @@ describe('notaDeEstrelas', () => {
     expect(notaDeEstrelas('★★★★★')).toBe('5/5');
     expect(notaDeEstrelas('★★★★☆')).toBe('4/5');
   });
+
+  it('aceita valor ausente sem lançar erro', () => {
+    expect(notaDeEstrelas(undefined)).toBe('0/5');
+    expect(notaDeEstrelas(null)).toBe('0/5');
+  });
 });
