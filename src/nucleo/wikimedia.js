@@ -52,6 +52,8 @@ export const fotoEmCache = (chave) => cache.get(chave) ?? null;
 export async function buscarFoto(chave, fontes) {
   if (cache.has(chave)) return cache.get(chave);
 
+  let houveFalhaDeRede = false;
+
   for (const fonte of fontes) {
     if (fonte.startsWith(PREFIXO_DIRETO)) {
       const url = fonte.slice(PREFIXO_DIRETO.length);
@@ -73,10 +75,11 @@ export async function buscarFoto(chave, fontes) {
       cache.set(chave, url);
       return url;
     } catch {
-      continue;
+      houveFalhaDeRede = true;
     }
   }
 
-  cache.set(chave, null);
+  // Queda de rede ou timeout não é "sem foto": não grava, para tentar de novo depois.
+  if (!houveFalhaDeRede) cache.set(chave, null);
   return null;
 }
