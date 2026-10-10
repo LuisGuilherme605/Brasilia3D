@@ -6,8 +6,11 @@ export function useFoto(chave, wikis) {
 
   useEffect(() => {
     let cancelado = false;
+    // Sem isso, trocar de ponto mantém a foto do anterior até a nova chegar
+    // (ou para sempre, se a nova não tiver foto).
+    setUrl(null);
     buscarFoto(chave, wikis).then((resultado) => {
-      if (!cancelado && resultado) setUrl(resultado);
+      if (!cancelado) setUrl(resultado);
     });
     return () => {
       cancelado = true;
