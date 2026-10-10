@@ -53,4 +53,8 @@ describe('notaDeEstrelas', () => {
     expect(notaDeEstrelas('★★★★★')).toBe('5/5');
     expect(notaDeEstrelas('★★★★☆')).toBe('4/5');
   });
+
+  it('não quebra quando o ponto não tem nota', () => {
+    expect(notaDeEstrelas(undefined)).toBe('0/5');
+  });
 });
