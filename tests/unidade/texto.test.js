@@ -52,5 +52,6 @@ describe('notaDeEstrelas', () => {
   it('conta só as estrelas cheias', () => {
     expect(notaDeEstrelas('★★★★★')).toBe('5/5');
     expect(notaDeEstrelas('★★★★☆')).toBe('4/5');
+    expect(notaDeEstrelas(undefined)).toBe('0/5');
   });
 });
