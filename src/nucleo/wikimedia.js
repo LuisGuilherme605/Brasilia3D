@@ -52,6 +52,10 @@ export const fotoEmCache = (chave) => cache.get(chave) ?? null;
 export async function buscarFoto(chave, fontes) {
   if (cache.has(chave)) return cache.get(chave);
 
+  // Falha de rede ou timeout não pode virar "sem foto" para o resto da sessão:
+  // nesse caso o resultado fica sem cache e a próxima chamada tenta de novo.
+  let falhouNaRede = false;
+
   for (const fonte of fontes) {
     if (fonte.startsWith(PREFIXO_DIRETO)) {
       const url = fonte.slice(PREFIXO_DIRETO.length);
@@ -73,10 +77,10 @@ export async function buscarFoto(chave, fontes) {
       cache.set(chave, url);
       return url;
     } catch {
-      continue;
+      falhouNaRede = true;
     }
   }
 
-  cache.set(chave, null);
+  if (!falhouNaRede) cache.set(chave, null);
   return null;
 }
