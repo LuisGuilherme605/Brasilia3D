@@ -34,7 +34,9 @@ function decodificar(texto) {
 }
 
 // Quebra 'pt:Catedral_de_Brasília' em idioma e título do artigo.
+// Sem prefixo de idioma, assume português em vez de cortar o título.
 export function separarFonte(fonte) {
+  if (!fonte.includes(':')) return { idioma: 'pt', titulo: fonte };
   const corte = fonte.indexOf(':');
   return { idioma: fonte.slice(0, corte), titulo: fonte.slice(corte + 1) };
 }

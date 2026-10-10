@@ -44,6 +44,13 @@ describe('separarFonte', () => {
     });
   });
 
+  it('assume português quando a fonte não traz idioma', () => {
+    expect(separarFonte('Catedral_de_Brasília')).toEqual({
+      idioma: 'pt',
+      titulo: 'Catedral_de_Brasília',
+    });
+  });
+
   it('mantém dois-pontos que aparecem no título', () => {
     expect(separarFonte('en:Brasilia:_A_City').titulo).toBe('Brasilia:_A_City');
   });
