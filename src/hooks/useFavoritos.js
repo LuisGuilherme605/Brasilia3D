@@ -6,7 +6,7 @@ const ouvintes = new Set();
 let favoritos = new Set(
   (() => {
     const salvos = lerJSON(CHAVE, []);
-    return Array.isArray(salvos) ? salvos : [];
+    return Array.isArray(salvos) ? salvos.filter(Number.isInteger) : [];
   })(),
 );
 
