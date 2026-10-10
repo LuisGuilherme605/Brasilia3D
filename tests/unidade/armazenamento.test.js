@@ -19,6 +19,11 @@ describe('armazenamento', () => {
     expect(lerJSON('favoritos', [])).toEqual([]);
   });
 
+  it('devolve o padrão quando o valor salvo é null', () => {
+    localStorage.setItem('favoritos', 'null');
+    expect(lerJSON('favoritos', [])).toEqual([]);
+  });
+
   it('não quebra quando o navegador bloqueia a gravação', () => {
     vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
       throw new Error('QuotaExceededError');

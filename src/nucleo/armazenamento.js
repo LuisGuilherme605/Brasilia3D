@@ -5,7 +5,7 @@
 export function lerJSON(chave, padrao) {
   try {
     const bruto = localStorage.getItem(chave);
-    return bruto === null ? padrao : JSON.parse(bruto);
+    return bruto === null ? padrao : (JSON.parse(bruto) ?? padrao);
   } catch {
     return padrao;
   }
