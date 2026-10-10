@@ -33,9 +33,11 @@ function decodificar(texto) {
   }
 }
 
-// Quebra 'pt:Catedral_de_Brasília' em idioma e título do artigo.
+// Quebra 'pt:Catedral_de_Brasília' em idioma e título do artigo. Sem prefixo,
+// assume português em vez de cortar o último caractere do título.
 export function separarFonte(fonte) {
   const corte = fonte.indexOf(':');
+  if (corte < 0) return { idioma: 'pt', titulo: fonte };
   return { idioma: fonte.slice(0, corte), titulo: fonte.slice(corte + 1) };
 }
 
