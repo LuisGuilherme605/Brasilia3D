@@ -27,6 +27,10 @@ describe('resumir', () => {
     expect(resumir(null, 10)).toBe('');
   });
 
+  it('aceita valor que não é texto', () => {
+    expect(resumir(12345, 3)).toBe('123…');
+  });
+
   it('corta no espaço para não partir palavra ao meio', () => {
     const resumo = resumir('Símbolo da democracia brasileira projetado por Niemeyer', 30);
     expect(resumo.endsWith('…')).toBe(true);
