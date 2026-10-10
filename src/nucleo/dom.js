@@ -41,7 +41,9 @@ export function prenderFoco(container) {
 
   function aoTeclar(evento) {
     if (evento.key !== 'Tab' || focaveis.length === 0) return;
-    if (evento.shiftKey && document.activeElement === primeiro) {
+    // Logo depois de abrir, o foco pode estar no próprio container (tabindex -1).
+    const noInicio = document.activeElement === primeiro || document.activeElement === container;
+    if (evento.shiftKey && noInicio) {
       evento.preventDefault();
       ultimo.focus();
     } else if (!evento.shiftKey && document.activeElement === ultimo) {
