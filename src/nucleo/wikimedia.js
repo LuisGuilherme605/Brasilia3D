@@ -52,6 +52,8 @@ export const fotoEmCache = (chave) => cache.get(chave) ?? null;
 export async function buscarFoto(chave, fontes) {
   if (cache.has(chave)) return cache.get(chave);
 
+  let falhaTransitoria = false;
+
   for (const fonte of fontes) {
     if (fonte.startsWith(PREFIXO_DIRETO)) {
       const url = fonte.slice(PREFIXO_DIRETO.length);
@@ -64,7 +66,10 @@ export async function buscarFoto(chave, fontes) {
       const resposta = await fetch(urlResumo(idioma, titulo), {
         signal: AbortSignal.timeout(TEMPO_LIMITE_MS),
       });
-      if (!resposta.ok) continue;
+      if (!resposta.ok) {
+        if (resposta.status >= 500 || resposta.status === 429) falhaTransitoria = true;
+        continue;
+      }
 
       const dados = await resposta.json();
       const url = dados.originalimage?.source || dados.thumbnail?.source;
@@ -73,10 +78,12 @@ export async function buscarFoto(chave, fontes) {
       cache.set(chave, url);
       return url;
     } catch {
+      falhaTransitoria = true;
       continue;
     }
   }
 
-  cache.set(chave, null);
+  // Timeout ou erro de rede não prova que o ponto não tem foto: deixa tentar de novo depois.
+  if (!falhaTransitoria) cache.set(chave, null);
   return null;
 }
