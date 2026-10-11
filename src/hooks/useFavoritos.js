@@ -10,6 +10,17 @@ let favoritos = new Set(
   })(),
 );
 
+// Outra aba alterou os favoritos: recarrega do storage para não sobrescrever
+// a lista dela na próxima gravação.
+if (typeof window !== 'undefined') {
+  window.addEventListener('storage', (e) => {
+    if (e.key !== CHAVE && e.key !== null) return;
+    const salvos = lerJSON(CHAVE, []);
+    favoritos = new Set(Array.isArray(salvos) ? salvos : []);
+    ouvintes.forEach((cb) => cb());
+  });
+}
+
 function subscribe(cb) {
   ouvintes.add(cb);
   return () => ouvintes.delete(cb);
