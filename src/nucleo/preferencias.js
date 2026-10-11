@@ -6,5 +6,7 @@ const consulta =
 export const movimentoReduzido = () => consulta?.matches ?? false;
 
 export function aoMudarMovimento(callback) {
-  consulta?.addEventListener('change', (evento) => callback(evento.matches));
+  const ouvinte = (evento) => callback(evento.matches);
+  consulta?.addEventListener('change', ouvinte);
+  return () => consulta?.removeEventListener('change', ouvinte);
 }
