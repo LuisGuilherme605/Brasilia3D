@@ -54,3 +54,10 @@ describe('notaDeEstrelas', () => {
     expect(notaDeEstrelas('★★★★☆')).toBe('4/5');
   });
 });
+
+describe('notaDeEstrelas com dado ausente', () => {
+  it('devolve 0/5 em vez de lançar quando o ponto não tem nota', () => {
+    expect(notaDeEstrelas(undefined)).toBe('0/5');
+    expect(notaDeEstrelas(null)).toBe('0/5');
+  });
+});
