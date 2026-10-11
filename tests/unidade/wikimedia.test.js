@@ -47,6 +47,13 @@ describe('separarFonte', () => {
   it('mantém dois-pontos que aparecem no título', () => {
     expect(separarFonte('en:Brasilia:_A_City').titulo).toBe('Brasilia:_A_City');
   });
+
+  it('assume português quando a fonte vem sem idioma', () => {
+    expect(separarFonte('Congresso_Nacional')).toEqual({
+      idioma: 'pt',
+      titulo: 'Congresso_Nacional',
+    });
+  });
 });
 
 describe('urlResumo', () => {
