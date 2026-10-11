@@ -1,5 +1,10 @@
-import { describe, it, expect } from 'vitest';
-import { ehFotoUtilizavel, separarFonte, urlResumo } from '../../src/nucleo/wikimedia.js';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import {
+  buscarFoto,
+  ehFotoUtilizavel,
+  separarFonte,
+  urlResumo,
+} from '../../src/nucleo/wikimedia.js';
 
 describe('ehFotoUtilizavel', () => {
   it('aceita uma foto grande em jpg', () => {
@@ -54,5 +59,28 @@ describe('urlResumo', () => {
     expect(urlResumo('pt', 'Palácio do Planalto')).toBe(
       'https://pt.wikipedia.org/api/rest_v1/page/summary/Pal%C3%A1cio%20do%20Planalto',
     );
+  });
+});
+
+describe('buscarFoto', () => {
+  afterEach(() => vi.unstubAllGlobals());
+
+  it('não guarda null quando a rede falha, para tentar de novo depois', async () => {
+    const fetchFalho = vi.fn().mockRejectedValue(new Error('offline'));
+    vi.stubGlobal('fetch', fetchFalho);
+    expect(await buscarFoto('rede-falha', ['pt:Teste'])).toBeNull();
+
+    const foto = { originalimage: { source: 'https://x/Teste.jpg', width: 1200 } };
+    const fetchOk = vi.fn().mockResolvedValue({ ok: true, json: async () => foto });
+    vi.stubGlobal('fetch', fetchOk);
+    expect(await buscarFoto('rede-falha', ['pt:Teste'])).toBe('https://x/Teste.jpg');
+  });
+
+  it('guarda null quando o artigo existe mas não tem foto utilizável', async () => {
+    const fetchSemFoto = vi.fn().mockResolvedValue({ ok: false });
+    vi.stubGlobal('fetch', fetchSemFoto);
+    expect(await buscarFoto('sem-foto', ['pt:Nada'])).toBeNull();
+    expect(await buscarFoto('sem-foto', ['pt:Nada'])).toBeNull();
+    expect(fetchSemFoto).toHaveBeenCalledTimes(1);
   });
 });

@@ -52,6 +52,7 @@ export const fotoEmCache = (chave) => cache.get(chave) ?? null;
 export async function buscarFoto(chave, fontes) {
   if (cache.has(chave)) return cache.get(chave);
 
+  let falhouRede = false;
   for (const fonte of fontes) {
     if (fonte.startsWith(PREFIXO_DIRETO)) {
       const url = fonte.slice(PREFIXO_DIRETO.length);
@@ -73,10 +74,13 @@ export async function buscarFoto(chave, fontes) {
       cache.set(chave, url);
       return url;
     } catch {
+      falhouRede = true;
       continue;
     }
   }
 
-  cache.set(chave, null);
+  // Sem resposta (offline, timeout) não é "sem foto": não guarda o null, para
+  // a próxima montagem do componente tentar de novo.
+  if (!falhouRede) cache.set(chave, null);
   return null;
 }
