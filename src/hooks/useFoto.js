@@ -6,6 +6,8 @@ export function useFoto(chave, wikis) {
 
   useEffect(() => {
     let cancelado = false;
+    // Sem isso a foto do item anterior continua na tela até a nova chegar.
+    setUrl(null);
     buscarFoto(chave, wikis).then((resultado) => {
       if (!cancelado && resultado) setUrl(resultado);
     });
