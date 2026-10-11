@@ -24,6 +24,16 @@ function notificar() {
   ouvintes.forEach((cb) => cb());
 }
 
+// Mantém várias abas abertas em sincronia: favoritar numa reflete nas outras.
+if (typeof window !== 'undefined') {
+  window.addEventListener('storage', (evento) => {
+    if (evento.key !== CHAVE && evento.key !== null) return;
+    const salvos = lerJSON(CHAVE, []);
+    favoritos = new Set(Array.isArray(salvos) ? salvos : []);
+    ouvintes.forEach((cb) => cb());
+  });
+}
+
 export function useFavoritos() {
   const favs = useSyncExternalStore(subscribe, getSnapshot);
 
