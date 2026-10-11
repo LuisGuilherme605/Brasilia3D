@@ -7,6 +7,7 @@ export default function BackToTop() {
 
   useEffect(() => {
     const atualizar = () => setVisivel(window.scrollY > 500);
+    atualizar();
     window.addEventListener('scroll', atualizar, { passive: true });
     return () => window.removeEventListener('scroll', atualizar);
   }, []);
