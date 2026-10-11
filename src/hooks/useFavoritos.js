@@ -19,8 +19,8 @@ function getSnapshot() {
   return favoritos;
 }
 
-function notificar() {
-  favoritos = new Set(favoritos);
+function notificar(proximo) {
+  favoritos = proximo;
   ouvintes.forEach((cb) => cb());
 }
 
@@ -28,11 +28,13 @@ export function useFavoritos() {
   const favs = useSyncExternalStore(subscribe, getSnapshot);
 
   const alternar = useCallback((id) => {
-    if (favoritos.has(id)) favoritos.delete(id);
-    else favoritos.add(id);
-    gravarJSON(CHAVE, [...favoritos]);
-    notificar();
-    return favoritos.has(id);
+    // Cria um Set novo em vez de mutar o atual, que pode ainda estar em uso
+    // como snapshot por algum componente.
+    const proximo = new Set(favoritos);
+    if (!proximo.delete(id)) proximo.add(id);
+    gravarJSON(CHAVE, [...proximo]);
+    notificar(proximo);
+    return proximo.has(id);
   }, []);
 
   const ehFavorito = useCallback((id) => favs.has(id), [favs]);
