@@ -20,7 +20,6 @@ function getSnapshot() {
 }
 
 function notificar() {
-  favoritos = new Set(favoritos);
   ouvintes.forEach((cb) => cb());
 }
 
@@ -28,6 +27,8 @@ export function useFavoritos() {
   const favs = useSyncExternalStore(subscribe, getSnapshot);
 
   const alternar = useCallback((id) => {
+    // copia antes de mexer: o snapshot entregue ao React nunca muda por baixo
+    favoritos = new Set(favoritos);
     if (favoritos.has(id)) favoritos.delete(id);
     else favoritos.add(id);
     gravarJSON(CHAVE, [...favoritos]);
