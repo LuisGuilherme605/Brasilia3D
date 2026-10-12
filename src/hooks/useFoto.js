@@ -6,9 +6,13 @@ export function useFoto(chave, wikis) {
 
   useEffect(() => {
     let cancelado = false;
-    buscarFoto(chave, wikis).then((resultado) => {
-      if (!cancelado && resultado) setUrl(resultado);
-    });
+    // Ao trocar de lugar, a foto do anterior não pode ficar na tela enquanto a nova carrega.
+    setUrl(null);
+    buscarFoto(chave, wikis)
+      .then((resultado) => {
+        if (!cancelado && resultado) setUrl(resultado);
+      })
+      .catch(() => {});
     return () => {
       cancelado = true;
     };
