@@ -2,17 +2,19 @@ import { useState, useEffect } from 'react';
 import { buscarFoto } from '../nucleo/wikimedia.js';
 
 export function useFoto(chave, wikis) {
-  const [url, setUrl] = useState(null);
+  // A url guarda a chave a que pertence: ao trocar de local, a foto do
+  // anterior não aparece no novo enquanto a busca não termina.
+  const [foto, setFoto] = useState({ chave: null, url: null });
 
   useEffect(() => {
     let cancelado = false;
     buscarFoto(chave, wikis).then((resultado) => {
-      if (!cancelado && resultado) setUrl(resultado);
+      if (!cancelado && resultado) setFoto({ chave, url: resultado });
     });
     return () => {
       cancelado = true;
     };
   }, [chave, wikis]);
 
-  return url;
+  return foto.chave === chave ? foto.url : null;
 }
