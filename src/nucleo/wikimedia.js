@@ -10,6 +10,8 @@ const NAO_FOTOGRAFICO = /(?:^|[^a-z])(?:logo|brand|icon|seal|bras[aã]o|marca|ba
 
 /** @type {Map<string|number, string|null>} */
 const cache = new Map();
+/** @type {Map<string|number, Promise<string|null>>} */
+const emAndamento = new Map();
 
 // A Wikipédia devolve como imagem principal muita coisa que não é foto do
 // lugar: brasão do estado, logotipo do órgão, mapa em SVG. Este filtro corta
@@ -49,9 +51,18 @@ export const fotoEmCache = (chave) => cache.get(chave) ?? null;
  * @param {string|number} chave id do ponto ou rótulo da galeria
  * @param {string[]} fontes artigos candidatos, em ordem de preferência
  */
-export async function buscarFoto(chave, fontes) {
-  if (cache.has(chave)) return cache.get(chave);
+export function buscarFoto(chave, fontes) {
+  if (cache.has(chave)) return Promise.resolve(cache.get(chave));
 
+  // Card e modal pedem a mesma foto quase ao mesmo tempo: reaproveita a busca.
+  if (!emAndamento.has(chave)) {
+    const busca = consultarFontes(chave, fontes).finally(() => emAndamento.delete(chave));
+    emAndamento.set(chave, busca);
+  }
+  return emAndamento.get(chave);
+}
+
+async function consultarFontes(chave, fontes) {
   for (const fonte of fontes) {
     if (fonte.startsWith(PREFIXO_DIRETO)) {
       const url = fonte.slice(PREFIXO_DIRETO.length);
