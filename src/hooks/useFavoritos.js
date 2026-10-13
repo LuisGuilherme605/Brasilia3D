@@ -3,12 +3,22 @@ import { lerJSON, gravarJSON } from '../nucleo/armazenamento.js';
 
 const CHAVE = 'brasilia3d_favorites';
 const ouvintes = new Set();
-let favoritos = new Set(
-  (() => {
-    const salvos = lerJSON(CHAVE, []);
-    return Array.isArray(salvos) ? salvos : [];
-  })(),
-);
+
+function carregar() {
+  const salvos = lerJSON(CHAVE, []);
+  return new Set(Array.isArray(salvos) ? salvos : []);
+}
+
+let favoritos = carregar();
+
+// Outra aba alterou a lista: recarrega do storage pra não sobrescrever depois.
+if (typeof window !== 'undefined') {
+  window.addEventListener('storage', (evento) => {
+    if (evento.key !== null && evento.key !== CHAVE) return;
+    favoritos = carregar();
+    ouvintes.forEach((cb) => cb());
+  });
+}
 
 function subscribe(cb) {
   ouvintes.add(cb);
