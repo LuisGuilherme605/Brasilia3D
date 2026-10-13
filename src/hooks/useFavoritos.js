@@ -10,6 +10,16 @@ let favoritos = new Set(
   })(),
 );
 
+// Outra aba alterou os favoritos: recarrega para as duas não divergirem.
+if (typeof window !== 'undefined') {
+  window.addEventListener('storage', (evento) => {
+    if (evento.key !== CHAVE && evento.key !== null) return;
+    const salvos = lerJSON(CHAVE, []);
+    favoritos = new Set(Array.isArray(salvos) ? salvos : []);
+    ouvintes.forEach((cb) => cb());
+  });
+}
+
 function subscribe(cb) {
   ouvintes.add(cb);
   return () => ouvintes.delete(cb);
