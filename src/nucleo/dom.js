@@ -41,7 +41,11 @@ export function prenderFoco(container) {
 
   function aoTeclar(evento) {
     if (evento.key !== 'Tab' || focaveis.length === 0) return;
-    if (evento.shiftKey && document.activeElement === primeiro) {
+    // Com o foco no próprio container (clique no fundo) Shift+Tab também sairia do modal.
+    if (
+      evento.shiftKey &&
+      (document.activeElement === primeiro || document.activeElement === container)
+    ) {
       evento.preventDefault();
       ultimo.focus();
     } else if (!evento.shiftKey && document.activeElement === ultimo) {
