@@ -19,6 +19,16 @@ function getSnapshot() {
   return favoritos;
 }
 
+// Outra aba alterou a lista: recarrega do storage para as duas não divergirem.
+if (typeof window !== 'undefined') {
+  window.addEventListener('storage', (evento) => {
+    if (evento.key !== CHAVE && evento.key !== null) return;
+    const salvos = lerJSON(CHAVE, []);
+    favoritos = new Set(Array.isArray(salvos) ? salvos : []);
+    ouvintes.forEach((cb) => cb());
+  });
+}
+
 function notificar() {
   favoritos = new Set(favoritos);
   ouvintes.forEach((cb) => cb());
