@@ -40,7 +40,12 @@ export function prenderFoco(container) {
   primeiro.focus();
 
   function aoTeclar(evento) {
-    if (evento.key !== 'Tab' || focaveis.length === 0) return;
+    if (evento.key !== 'Tab') return;
+    // Sem nada focável dentro, o Tab não pode escapar para a página de trás.
+    if (focaveis.length === 0) {
+      evento.preventDefault();
+      return;
+    }
     if (evento.shiftKey && document.activeElement === primeiro) {
       evento.preventDefault();
       ultimo.focus();
