@@ -1,5 +1,10 @@
 import { describe, it, expect, vi } from 'vitest';
-import { buscarFoto, ehFotoUtilizavel, separarFonte, urlResumo } from '../../src/nucleo/wikimedia.js';
+import {
+  buscarFoto,
+  ehFotoUtilizavel,
+  separarFonte,
+  urlResumo,
+} from '../../src/nucleo/wikimedia.js';
 
 describe('ehFotoUtilizavel', () => {
   it('aceita uma foto grande em jpg', () => {
@@ -61,7 +66,9 @@ describe('buscarFoto', () => {
   it('compartilha a requisição quando a mesma foto é pedida duas vezes', async () => {
     const fetchFalso = vi.fn().mockResolvedValue({
       ok: true,
-      json: async () => ({ originalimage: { source: 'https://exemplo.org/foto.jpg', width: 1200 } }),
+      json: async () => ({
+        originalimage: { source: 'https://exemplo.org/foto.jpg', width: 1200 },
+      }),
     });
     vi.stubGlobal('fetch', fetchFalso);
 
