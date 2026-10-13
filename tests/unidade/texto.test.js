@@ -49,6 +49,11 @@ describe('codigoPrancha', () => {
 });
 
 describe('notaDeEstrelas', () => {
+  it('não quebra quando o ponto vem sem nota', () => {
+    expect(notaDeEstrelas(undefined)).toBe('0/5');
+    expect(notaDeEstrelas('')).toBe('0/5');
+  });
+
   it('conta só as estrelas cheias', () => {
     expect(notaDeEstrelas('★★★★★')).toBe('5/5');
     expect(notaDeEstrelas('★★★★☆')).toBe('4/5');
