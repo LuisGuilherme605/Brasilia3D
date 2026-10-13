@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { ehFotoUtilizavel, separarFonte, urlResumo } from '../../src/nucleo/wikimedia.js';
+import { describe, it, expect, vi } from 'vitest';
+import { buscarFoto, ehFotoUtilizavel, separarFonte, urlResumo } from '../../src/nucleo/wikimedia.js';
 
 describe('ehFotoUtilizavel', () => {
   it('aceita uma foto grande em jpg', () => {
@@ -54,5 +54,25 @@ describe('urlResumo', () => {
     expect(urlResumo('pt', 'Palácio do Planalto')).toBe(
       'https://pt.wikipedia.org/api/rest_v1/page/summary/Pal%C3%A1cio%20do%20Planalto',
     );
+  });
+});
+
+describe('buscarFoto', () => {
+  it('compartilha a requisição quando a mesma foto é pedida duas vezes', async () => {
+    const fetchFalso = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ originalimage: { source: 'https://exemplo.org/foto.jpg', width: 1200 } }),
+    });
+    vi.stubGlobal('fetch', fetchFalso);
+
+    const [a, b] = await Promise.all([
+      buscarFoto('teste-duplicado', ['pt:Catedral']),
+      buscarFoto('teste-duplicado', ['pt:Catedral']),
+    ]);
+
+    expect(a).toBe('https://exemplo.org/foto.jpg');
+    expect(b).toBe(a);
+    expect(fetchFalso).toHaveBeenCalledTimes(1);
+    vi.unstubAllGlobals();
   });
 });
