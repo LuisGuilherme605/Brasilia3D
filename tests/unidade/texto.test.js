@@ -34,6 +34,10 @@ describe('resumir', () => {
     expect(resumo).not.toContain('democracia b');
   });
 
+  it('também corta em quebra de linha', () => {
+    expect(resumir('Esplanada dos Ministérios\nprojetada-por-Lúcio-Costa', 40)).toBe('Esplanada dos Ministérios…');
+  });
+
   it('não deixa pontuação colada nas reticências', () => {
     const resumo = resumir('Projetado por Niemeyer e inaugurado em 1960. Fica na Esplanada', 45);
     expect(resumo).toBe('Projetado por Niemeyer e inaugurado em 1960…');

@@ -14,7 +14,7 @@ export function resumir(valor, limite = 110) {
   const texto = valor ?? '';
   if (texto.length <= limite) return texto;
   const corte = texto.slice(0, limite);
-  const espaco = corte.lastIndexOf(' ');
+  const espaco = Math.max(corte.lastIndexOf(' '), corte.lastIndexOf('\n'));
   const base = espaco > limite * 0.6 ? corte.slice(0, espaco) : corte;
   // Tira pontuação da ponta para não sair "1960.…".
   return `${base.replace(/[\s.,;:—-]+$/, '')}…`;
